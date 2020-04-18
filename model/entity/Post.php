@@ -7,6 +7,7 @@ Class Post {
     protected $title;
     protected $content;
     protected $category;
+    protected $userId;
 
 
     // Setteur 
@@ -31,6 +32,10 @@ Class Post {
         $this->category = $category;
     }
 
+    public function setUserId($userId){
+        $this->userId = $userId;
+    }
+
     // Getteur
 
     public function getId() {
@@ -51,6 +56,10 @@ Class Post {
 
     public function getCategory() {
         return $this->category;
+    }
+
+    public function getUserId() {
+        return $this->userId;
     }
        
 }
