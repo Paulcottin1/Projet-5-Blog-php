@@ -1,6 +1,10 @@
 <?php
 
 require('model/frontend.php');
+spl_autoload_register(function ($class_name) {
+    include 'model/entity/'.$class_name . '.php';
+});
+
 
 function listPosts()
 {
@@ -13,7 +17,7 @@ function post()
 {
     $post = getPost($_GET['id']);
     $comments = getComments($_GET['id']);
-
+    
     require('view/frontend/postView.php');
 }
 

@@ -19,7 +19,12 @@ Class Comment {
     /**
      * @var int
      */
-    protected $postId; 
+    protected $postId;
+
+    /**
+     * @var string
+     */
+    protected $author;
 
     /**
      * @param  int $id
@@ -91,5 +96,23 @@ Class Comment {
     public function getPostId() : int
     {
         return $this->postId;
+    }
+
+    /**
+     * @param  string $author
+     * @return object
+     */
+    public function setAuthor(string $author) : object
+    {
+        $this->author = $author;
+        return $this;
+    }  
+      
+    /**
+     * @return string
+     */
+    public function getAuthor() : string
+    {
+        return $this->author;
     }
 }
