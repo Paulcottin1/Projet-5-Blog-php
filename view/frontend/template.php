@@ -7,6 +7,6 @@
     </head>
         
     <body>
-        <?= $content ?>
+        <?php echo ob_get_clean(); ?>
     </body>
 </html>

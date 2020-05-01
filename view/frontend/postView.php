@@ -32,7 +32,7 @@
 </form>
 
 <?php
-foreach($comments as $comment){
+foreach($post->getComments() as $comment){
 ?>
     <p><strong><?= htmlspecialchars($comment->getAuthor()) ?> :</strong> </p>
     <p><?= nl2br(htmlspecialchars($comment->getComment())) ?></p>

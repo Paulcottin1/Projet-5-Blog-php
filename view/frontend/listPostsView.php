@@ -22,7 +22,6 @@ foreach($posts as $post) {
     </div>
 <?php
 }
-$posts->closeCursor();
 ?>
-<?php $content = ob_get_clean(); ?>
+
 

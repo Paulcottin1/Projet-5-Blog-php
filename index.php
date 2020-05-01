@@ -1,13 +1,15 @@
 <?php
-require('controller/frontend.php');
+require('controller/FrontendController.php');
 
 if (isset($_GET['action'])) {
+    $controller = new FrontendController;
+
     if ($_GET['action'] == 'listPosts') {
-        listPosts();
+        $controller->listPosts();
     }
     elseif ($_GET['action'] == 'post') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
-            post();
+            $controller->post();
         }
         else {
             echo 'Erreur : aucun identifiant de billet envoyé';
@@ -16,7 +18,7 @@ if (isset($_GET['action'])) {
     elseif ($_GET['action'] == 'addComment') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                $controller->addComment($_GET['id'], $_POST['author'], $_POST['comment']);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -28,5 +30,6 @@ if (isset($_GET['action'])) {
     }
 }
 else {
-    listPosts();
+    $controller = new FrontendController;
+    $controller->listPosts();
 }

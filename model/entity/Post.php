@@ -29,7 +29,13 @@ Class Post {
     /**
      * @var int
      */
-    protected $userId; 
+    protected $userId;
+    
+    /**
+     *
+     * @var array
+     */
+    protected $comments = [];
 
     /**
      * @param  int $id
@@ -138,5 +144,25 @@ Class Post {
     {
         return $this->userId;
     }
+    
+    /**
+     * @param  array $comments
+     * @return object
+     */
+    public function setComments(array $comments) : object 
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getComments() : array
+    {
+        return $this->comments;
+    }
+
+    
 }
 
