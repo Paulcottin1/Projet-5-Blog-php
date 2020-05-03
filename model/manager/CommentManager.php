@@ -12,12 +12,28 @@ Class CommentManager
         $comments = [];
         while($data = $req->fetch())
         {
-            $comment = new Comment;
-            $comment->setId($data['id'])->setPostId($postId)->setAuthor($data['author'])->setComment($data['comment']);
+            $comment = $this->getComment($data['id']);
             $comments[] = $comment;
         }
 
         return $comments;
+    }
+
+    public function getComment($id)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, author, comment FROM comments WHERE id = ?');
+        $req->execute(array($id));
+
+        $data = $req->fetch();
+        $comment = new Comment;
+            
+        $comment
+        ->setId($data['id'])
+        ->setAuthor($data['author'])
+        ->setComment($data['comment']);
+
+        return $comment;
     }
 
     public function postComment($postId, $author, $comment)

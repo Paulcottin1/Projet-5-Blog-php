@@ -27,7 +27,12 @@ Class PostManager
         
         $data = $req->fetch();
         $post = new Post;
-        $post->setId($data['id'])->setTitle($data['title'])->setContent($data['content'])->setComments($commentsManager->getComments($data['id']));
+        
+        $post
+        ->setId($data['id'])
+        ->setTitle($data['title'])
+        ->setContent($data['content'])
+        ->setComments($commentsManager->getComments($data['id']));
         
         return $post;
     }
