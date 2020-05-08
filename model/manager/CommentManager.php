@@ -1,6 +1,8 @@
 <?php
+namespace App\model\manager;
+use App\model\entity\Comment;
 
-Class CommentManager
+Class CommentManager extends AbstractManager
 {
     public function getComments($postId)
     {
@@ -43,18 +45,5 @@ Class CommentManager
         $affectedLines = $comments->execute(array($postId, $author, $comment));
 
         return $affectedLines;
-    }
-
-    public function dbConnect()
-    {
-        try
-        {
-            $db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', 'root');
-            return $db;
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-        }
     }
 }
