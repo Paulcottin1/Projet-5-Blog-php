@@ -1,25 +1,9 @@
 <?php
+namespace App\controller;
+use App\model\manager\PostManager;
+use App\model\manager\CommentManager;
 
 Class FrontendController {
-
-    public function __construct() {
-        $this->autoloadEntity();
-        $this->autoloadManager();
-    }
-
-    public function autoloadEntity()
-    {
-        spl_autoload_register(function ($class_name) {
-            include 'model/entity/'.$class_name . '.php';
-        });
-    }
-
-    public function autoloadManager()
-    {
-        spl_autoload_register(function ($class_name) {
-            include 'model/manager/'.$class_name . '.php';
-        });
-    }
 
     public function listPosts()
     {   

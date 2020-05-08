@@ -1,6 +1,9 @@
 <?php
+namespace App\model\manager;
+use App\model\manager\CommentManager;
+use App\model\entity\Post;
 
-Class PostManager 
+Class PostManager extends AbstractManager
 {
     public function getPosts()
     {
@@ -35,18 +38,5 @@ Class PostManager
         ->setComments($commentsManager->getComments($data['id']));
         
         return $post;
-    }
-
-    public function dbConnect()
-    {
-        try
-        {
-            $db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', 'root');
-            return $db;
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-    }
     }
 }

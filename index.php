@@ -1,5 +1,6 @@
 <?php
-require('controller/FrontendController.php');
+require_once('vendor/autoload.php');
+use App\controller\FrontendController;
 
 if (isset($_GET['action'])) {
     $controller = new FrontendController;
