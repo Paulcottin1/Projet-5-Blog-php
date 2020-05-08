@@ -1,6 +1,6 @@
 <?php
-namespace App\model\manager;
-use App\model\entity\Comment;
+namespace App\manager;
+use App\entity\Comment;
 
 Class CommentManager extends AbstractManager
 {

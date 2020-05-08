@@ -1,5 +1,5 @@
 <?php
-namespace App\model\manager;
+namespace App\manager;
 
 Abstract Class AbstractManager
 {

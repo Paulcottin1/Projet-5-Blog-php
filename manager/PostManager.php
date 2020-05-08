@@ -1,7 +1,7 @@
 <?php
-namespace App\model\manager;
-use App\model\manager\CommentManager;
-use App\model\entity\Post;
+namespace App\manager;
+use App\manager\CommentManager;
+use App\entity\Post;
 
 Class PostManager extends AbstractManager
 {
@@ -38,5 +38,14 @@ Class PostManager extends AbstractManager
         ->setComments($commentsManager->getComments($data['id']));
         
         return $post;
+    }
+
+    public function addPost($title, $content, $img)
+    {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('INSERT INTO posts(title, content, creation_date, img) VALUES(?, ?, NOW(), ?)');
+        $affectedLines = $comments->execute(array($title, $content, $img));
+
+        return $affectedLines;
     }
 }

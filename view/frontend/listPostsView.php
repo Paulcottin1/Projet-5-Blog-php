@@ -1,5 +1,6 @@
-<?php require('template.php'); ?>
 <?php $title = 'Mon blog'; ?>
+<?php require('template.php'); ?>
+
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
