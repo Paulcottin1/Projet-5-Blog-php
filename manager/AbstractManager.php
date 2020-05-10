@@ -7,7 +7,7 @@ Abstract Class AbstractManager
     {
         try
         {
-            $db = new \PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', 'root');
+            $db = new \PDO('mysql:host=localhost;dbname=blog_p5;charset=utf8', 'root', 'root');
             return $db;
         }
         catch(Exception $e)
