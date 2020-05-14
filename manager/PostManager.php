@@ -1,14 +1,14 @@
 <?php
-namespace App\model\manager;
-use App\model\manager\CommentManager;
-use App\model\entity\Post;
+namespace App\manager;
+use App\manager\CommentManager;
+use App\entity\Post;
 
 Class PostManager extends AbstractManager
 {
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT 0, 5');
+        $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT 0, 8');
         
         $posts = [];
         while($data = $req->fetch())
@@ -38,5 +38,14 @@ Class PostManager extends AbstractManager
         ->setComments($commentsManager->getComments($data['id']));
         
         return $post;
+    }
+
+    public function addPost($title, $content, $img)
+    {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('INSERT INTO posts(title, content, creation_date, img) VALUES(?, ?, NOW(), ?)');
+        $affectedLines = $comments->execute(array($title, $content, $img));
+
+        return $affectedLines;
     }
 }

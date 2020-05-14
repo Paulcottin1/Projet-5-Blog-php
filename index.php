@@ -29,6 +29,17 @@ if (isset($_GET['action'])) {
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
     }
+    elseif($_GET['action'] == 'formAddPost'){
+        $controller->formAddPost();
+    }
+    elseif($_GET['action'] == 'addPost') {
+        if(!empty($_POST['title'] && !empty($_POST['content']))) {
+            $controller->addPost($_POST['title'], $_POST['content'], $_POST['img']);
+        }
+        else {
+            echo 'Erreur : tous les champs ne sont pas remplis !';
+        }
+    }
 }
 else {
     $controller = new FrontendController;

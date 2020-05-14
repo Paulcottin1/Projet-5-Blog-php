@@ -1,5 +1,5 @@
 <?php
-namespace App\model\entity;
+namespace App\entity;
 
 Class Post {     
     /**

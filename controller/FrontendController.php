@@ -1,7 +1,7 @@
 <?php
 namespace App\controller;
-use App\model\manager\PostManager;
-use App\model\manager\CommentManager;
+use App\manager\PostManager;
+use App\manager\CommentManager;
 
 Class FrontendController {
 
@@ -31,6 +31,24 @@ Class FrontendController {
         }
         else {
             header('Location: index.php?action=post&id=' . $postId);
+        }
+    }
+
+    public function formAddPost()
+    {
+        require('view/frontend/formAddPost.php');
+    }
+
+    public function addPost($title, $content, $img)
+    {
+        $manager = new PostManager;
+        $affectedLines = $manager->addPost($title, $content, $img);
+
+        if ($affectedLines === false) {
+            die('Impossible d\'ajouter le post !');
+        }
+        else {
+            header('Location: index.php?action=listPosts');
         }
     }
 }

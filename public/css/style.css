@@ -1,27 +1,103 @@
-h1, h3
+h1
+{
+    text-align:center;
+    color: white;
+    background-color: #343a40;
+    font-size: 45px !important;
+    font-weight: bold;
+}
+
+h2 {
+    margin-bottom: 15px !important;
+    text-align:center !important;
+}
+
+h3
 {
     text-align:center;
 }
-h3
+
+a {
+    color: white !important;
+}
+
+.title-blog-page
 {
-    background-color:black;
+    background-image: url('/Projet5/P5_Blog/public/image/background-blog.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.title-blog-page h1 {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.news h3
+{
+    background-color:#343a40;
     color:white;
-    font-size:0.9em;
+    font-size:20px !important;
     margin-bottom:0px;
+    height: 80px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .news p
 {
     background-color:#CCCCCC;
     margin-top:0px;
+    margin-bottom: 0px;
+    padding-top: 10px !important;
+    height: 200px !important;
+    text-align: center;
 }
 .news
 {
-    width:70%;
-    margin:auto;
+    width:100%;
+    margin-bottom: 15px;
 }
 
-a
+.view-comments 
 {
-    text-decoration: none;
-    color: blue;
+    background-color: #343a40;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.center 
+{
+    text-align: center;
+}
+
+.add-comment-form input 
+{
+    width: 100%;
+}
+
+.add-comment-form textarea 
+{
+    width: 100%;
+}
+
+.add-comment-form label 
+{
+    float: left;
+}
+
+.comments h2 
+{
+    margin-top: 10px;
+}
+
+.comment 
+{
+    border-bottom: solid 1px #343a40;
+    margin-bottom: 3px;
 }

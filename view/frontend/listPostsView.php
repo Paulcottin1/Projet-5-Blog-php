@@ -1,27 +1,32 @@
-<?php require('template.php'); ?>
 <?php $title = 'Mon blog'; ?>
+<?php require('template.php'); ?>
+
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<div class="row center title-blog-page">
+    <h1 class="col">Mon blog !</h1>
+</div>
+<h2>Derniers billets du blog </h2>
 
-
-<?php
-foreach($posts as $post) { 
-?>
-    <div class="news">
-        <h3>
-            <?= htmlspecialchars($post->getTitle()) ?>
-        </h3>
-        
-        <p>
-            <?= nl2br(htmlspecialchars($post->getContent())) ?>
-            <br />
-            <em><a href="index.php?action=post&amp;id=<?= $post->getId() ?>">Commentaires</a></em>
-        </p>
-    </div>
-<?php
-}
-?>
+<div class="row">
+    <?php
+    foreach($posts as $post) { 
+    ?>
+        <div class="news col-12 col-sm-6 col-md-3">
+            <h3>
+                <?= htmlspecialchars($post->getTitle()) ?>
+            </h3>
+            
+            <p>
+                <?= nl2br(htmlspecialchars($post->getContent())) ?>
+            </p>
+            <div class="view-comments">
+                <a href="index.php?action=post&amp;id=<?= $post->getId() ?>">Voir les commentaires</a>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
+</div>
 
 
