@@ -28,8 +28,7 @@ Class FrontendController {
 
         if ($affectedLines === false) {
             die('Impossible d\'ajouter le commentaire !');
-        }
-        else {
+        } else {
             header('Location: index.php?action=post&id=' . $postId);
         }
     }
@@ -41,14 +40,17 @@ Class FrontendController {
 
     public function addPost($title, $content, $img)
     {
-        $manager = new PostManager;
-        $affectedLines = $manager->addPost($title, $content, $img);
+        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES)) {
+            $manager = new PostManager;
+            $affectedLines = $manager->addPost($title, $content, $img);
 
-        if ($affectedLines === false) {
-            die('Impossible d\'ajouter le post !');
-        }
-        else {
-            header('Location: index.php?action=listPosts');
+            if ($affectedLines === false) {
+                die('Impossible d\'ajouter le post !');
+            } else {
+                header('Location: index.php?action=listPosts');
+            }
+        } else {
+            echo 'Erreur : tous les champs ne sont pas remplis !';
         }
     }
 }

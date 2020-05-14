@@ -8,11 +8,13 @@
 <div class="container">
     <p class="btn btn-secondary"><a href="index.php">Retour à la liste des billets</a></p>
 </div>
+<div class="img-post-view row center">
+    <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid col">
+</div>
 <div class="news container">
     <h3>
         <?= htmlspecialchars($post->getTitle()) ?>
     </h3>
-    
     <p>
         <?= nl2br(htmlspecialchars($post->getContent())) ?>
     </p>
