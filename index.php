@@ -33,15 +33,39 @@ if (isset($_GET['action'])) {
         $controller->formAddPost();
     }
     elseif($_GET['action'] == 'addPost') {
-        if(!empty($_POST['title'] && !empty($_POST['content']))) {
-            $controller->addPost($_POST['title'], $_POST['content'], $_POST['img']);
+        define('TARGET', './public/image/');    // Repertoire cible
+        define('MAX_SIZE', 100000);    // Taille max en octets du fichier
+        define('WIDTH_MAX', 2000);    // Largeur max de l'image en pixels
+        define('HEIGHT_MAX', 2000);    // Hauteur max de l'image en pixels
+        
+        $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
+        $infosImg = array();
+        
+        $imageName = '';
+
+        $infosImg = getimagesize($_FILES['file']['tmp_name']); 
+        $extension  = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+        if(!in_array(strtolower($extension),$tabExt)) {
+            echo 'L\'extension du fichier est incorrecte !';
         }
-        else {
-            echo 'Erreur : tous les champs ne sont pas remplis !';
+        elseif($infosImg[2] < 1 && $infosImg[2] > 14){
+            echo 'Le fichier à uploader n\'est pas une image !';
+        }
+        elseif(($infosImg[0] > WIDTH_MAX) && ($infosImg[1] > HEIGHT_MAX) && (filesize($_FILES['file']['tmp_name']) > MAX_SIZE)){
+            echo 'Erreur dans les dimensions de l\'image !';
+        }
+        elseif(!isset($_FILES['file']['error']) && UPLOAD_ERR_OK != $_FILES['file']['error']){
+            echo 'Une erreur interne a empêché l\'uplaod de l\'image';
+        } else {
+            $imageName = md5(uniqid()) .'.'. $extension;
+            if(!move_uploaded_file($_FILES['file']['tmp_name'], TARGET.$imageName)){
+                echo 'Problème lors de l\'upload !';
+            }
+            $controller->addPost($_POST['title'], $_POST['content'], $imageName);             
         }
     }
-}
-else {
+} else {
     $controller = new FrontendController;
     $controller->listPosts();
 }

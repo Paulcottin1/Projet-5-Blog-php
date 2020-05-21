@@ -57,9 +57,20 @@ a {
     height: 200px !important;
     text-align: center;
 }
+
+.news img {
+    height: 200px;
+}
+
+.img-post-view img {
+    display: block;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 50%;
+}
+
 .news
 {
-    width:100%;
     margin-bottom: 15px;
 }
 

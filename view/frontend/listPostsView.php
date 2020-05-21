@@ -16,7 +16,7 @@
             <h3>
                 <?= htmlspecialchars($post->getTitle()) ?>
             </h3>
-            
+            <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
             <p>
                 <?= nl2br(htmlspecialchars($post->getContent())) ?>
             </p>

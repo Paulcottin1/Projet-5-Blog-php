@@ -25,7 +25,7 @@ Class PostManager extends AbstractManager
         $db = $this->dbConnect();
         $commentsManager = new CommentManager;
 
-        $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, content, img, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
         $req->execute(array($postId));
         
         $data = $req->fetch();
@@ -35,7 +35,8 @@ Class PostManager extends AbstractManager
         ->setId($data['id'])
         ->setTitle($data['title'])
         ->setContent($data['content'])
-        ->setComments($commentsManager->getComments($data['id']));
+        ->setComments($commentsManager->getComments($data['id']))
+        ->setImg($data['img']);
         
         return $post;
     }

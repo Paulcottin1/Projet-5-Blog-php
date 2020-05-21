@@ -20,7 +20,12 @@ Class Post {
     /**
      * @var string
      */
-    protected $content; 
+    protected $content;
+    
+    /**
+     * @var string
+     */
+    protected $img;
 
     /**
      * @var int
@@ -108,7 +113,25 @@ Class Post {
     public function getContent() : string
     {
         return $this->content;
-    }  
+    } 
+    
+    /**
+     * @param  string $img
+     * @return object
+     */
+    public function setImg( string $img) : object 
+    {
+        $this->img = $img;
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getImg() : string 
+    {
+        return $this->img;
+    }
 
     /**
      * @param  int $categoryId

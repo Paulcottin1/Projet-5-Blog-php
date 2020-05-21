@@ -5,18 +5,18 @@
 <div>
     <h1>Ajouter un blog post !</h1>
 
-    <form action="index.php?action=addPost" method="post">
+    <form action="?action=addPost" method="post" enctype="multipart/form-data">
         <div>
             <label for="title"> Titre </label>
             <input type="text" name="title">
         </div>
         <div>
             <label for="content"> Contenu </label>
-            <textarea name="content" id="conteent" cols="30" rows="5"></textarea>
+            <textarea name="content" id="content" cols="30" rows="5"></textarea>
         </div>
         <div>
-            <label for="img"> Image de mise en avant</label>
-            <input type="file" name="img" id="id">
+            <label for="fichier"> Image de mise en avant</label>
+            <input type="file" name="file">
         </div>
         <input type="submit">
     </form>
