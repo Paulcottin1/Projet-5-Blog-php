@@ -18,7 +18,7 @@
             </h3>
             <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
             <p>
-                <?= nl2br(htmlspecialchars($post->getContent())) ?>
+                <?= nl2br(htmlspecialchars($post->getChapo())) ?>
             </p>
             <div class="view-comments">
                 <a href="index.php?action=post&amp;id=<?= $post->getId() ?>">Voir les commentaires</a>
