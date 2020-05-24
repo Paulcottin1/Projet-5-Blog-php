@@ -21,9 +21,18 @@ a {
     color: white !important;
 }
 
+.background {
+    background-color: #343a40;
+
+}
+
+.button {
+    margin-bottom: 15px;
+}
+
 .title-blog-page
 {
-    background-image: url('/Projet5/P5_Blog/public/image/background-blog.jpg');
+    background-image: url('/Projet5/P5_Blog/public/image/backgroundblog.jpg');
     background-position: center;
     background-size: cover;
     height: 300px;
@@ -111,4 +120,72 @@ a {
 {
     border-bottom: solid 1px #343a40;
     margin-bottom: 3px;
+}
+
+/* home */
+
+.social-media h3 {
+    color: black;
+}
+
+.social-media img {
+    height: 50px;
+    width: 50px;
+}
+
+.social-media a {
+    color: black !important;
+}
+
+.name {
+    background-image: url('/Projet5/P5_Blog/public/image/code.jpg');
+    height: 300px;
+    background-position: center;
+    background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative
+}
+
+.name p {
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+.name h2 {
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    
+}
+
+.cv {
+    height: 150px;
+    position: relative
+}
+
+.cv a {
+    width: 30%;
+    margin-bottom: 15px;
+    margin: 0;
+    position: absolute;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+.cv h3 {
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    transform: translate(-50%, -50%);
+    left: 50%;
 }

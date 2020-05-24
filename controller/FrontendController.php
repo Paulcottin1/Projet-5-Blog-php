@@ -5,10 +5,17 @@ use App\manager\CommentManager;
 
 Class FrontendController {
 
+    public function home() {
+        $manager = new PostManager;
+        $posts = $manager->getPosts(4);
+
+        require('view/frontend/home.php');
+    }
+
     public function listPosts()
     {   
         $manager = new PostManager;
-        $posts = $manager->getPosts();
+        $posts = $manager->getPosts(8);
 
         require('view/frontend/listPostsView.php');
     }

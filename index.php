@@ -65,7 +65,11 @@ if (isset($_GET['action'])) {
             $controller->addPost($_POST['title'], $_POST['content'], $imageName);             
         }
     }
+    elseif($_GET['action'] == 'blog') {
+        $controller = new FrontendController;
+        $controller->listPosts();
+    }
 } else {
     $controller = new FrontendController;
-    $controller->listPosts();
+    $controller->home();
 }
