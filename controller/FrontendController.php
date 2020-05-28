@@ -60,4 +60,9 @@ Class FrontendController {
             echo 'Erreur : tous les champs ne sont pas remplis !';
         }
     }
+
+    public function contact()
+    {
+        require('view/frontend/contact.php');
+    }
 }

@@ -16,6 +16,7 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link active" href="index.php">Accueil <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link active" href="index.php?action=blog">Blog</a>
+                    <a class="nav-item nav-link active" href="index.php?action=contact">Contact</a>
                 </div>
             </div>
         </nav>

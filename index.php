@@ -3,7 +3,7 @@ require_once('vendor/autoload.php');
 use App\controller\FrontendController;
 
 if (isset($_GET['action'])) {
-    $controller = new FrontendController;
+    $controller = new FrontendController();
 
     if ($_GET['action'] == 'listPosts') {
         $controller->listPosts();
@@ -66,10 +66,33 @@ if (isset($_GET['action'])) {
         }
     }
     elseif($_GET['action'] == 'blog') {
-        $controller = new FrontendController;
+        $controller = new FrontendController();
         $controller->listPosts();
     }
+    elseif($_GET['action'] == 'contact'){
+        $controller = new FrontendController();
+        $controller->contact();
+
+        if(isset($_POST['email'])){
+            if(!empty($_POST['name']) && !empty($_POST['subject']) && !empty($_POST['message'])) {
+            $toEmail = 'cottin.paul45@gmail.com';
+            $EmailSubject = 'Blog contact form'; 
+            $mailheader = "From: ".$_POST["email"]."\r\n"; 
+            $mailheader .= "Reply-To: ".$_POST["email"]."\r\n"; 
+            $mailheader .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+            $MESSAGE_BODY = "Name: ".$_POST["name"].""; 
+            $MESSAGE_BODY .= "Email: ".$_POST["email"]."";
+            $MESSAGE_BODY .= "Sujet: ".$_POST["subject"]."";  
+            $MESSAGE_BODY .= "Message: ".nl2br($_POST["message"]).""; 
+            mail($toEmail, $EmailSubject, $MESSAGE_BODY, $mailheader) or die ("Failure"); 
+
+            echo 'Votre message a bien été envoyé';
+            } else {
+                echo 'Veuillez remplir tous les champs';
+            }
+        }
+    }
 } else {
-    $controller = new FrontendController;
+    $controller = new FrontendController();
     $controller->home();
 }
