@@ -5,10 +5,7 @@ use App\controller\FrontendController;
 if (isset($_GET['action'])) {
     $controller = new FrontendController();
 
-    if ($_GET['action'] == 'listPosts') {
-        $controller->listPosts();
-    }
-    elseif ($_GET['action'] == 'post') {
+    if ($_GET['action'] == 'post') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $controller->post();
         }
@@ -67,7 +64,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'blog') {
         $controller = new FrontendController();
-        $controller->listPosts();
+        $controller->listPosts(8);
     }
     elseif($_GET['action'] == 'contact'){
         $controller = new FrontendController();

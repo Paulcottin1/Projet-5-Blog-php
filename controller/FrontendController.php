@@ -12,10 +12,11 @@ Class FrontendController {
         require('view/frontend/home.php');
     }
 
-    public function listPosts()
+    public function listPosts($limite)
     {   
         $manager = new PostManager;
-        $posts = $manager->getPosts(8);
+        $numberPages = ceil($manager->countPost() / $limite);
+        $posts = $manager->getPosts($limite);
 
         require('view/frontend/listPostsView.php');
     }

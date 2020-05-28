@@ -30,6 +30,8 @@ a {
     margin-bottom: 15px;
 }
 
+/* blog page */
+
 .title-blog-page
 {
     background-image: url('../image/backgroundblog.jpg');
@@ -120,6 +122,11 @@ a {
 {
     border-bottom: solid 1px #343a40;
     margin-bottom: 3px;
+}
+
+.pagination {
+    position: absolute;
+    left:40%;
 }
 
 /* home */
