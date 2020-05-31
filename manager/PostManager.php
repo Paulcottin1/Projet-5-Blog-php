@@ -5,10 +5,17 @@ use App\entity\Post;
 
 Class PostManager extends AbstractManager
 {
-    public function getPosts($articleNumber)
+    public function getPosts($limite)
     {
+        if(!empty($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        $debut = ($page - 1) * $limite;
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT '.$articleNumber);
+        $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT '.$limite.' OFFSET '.$debut);
         
         $posts = [];
         while($data = $req->fetch())
@@ -49,5 +56,13 @@ Class PostManager extends AbstractManager
         $affectedLines = $comments->execute(array($title, $content, $img));
 
         return $affectedLines;
+    }
+
+    public function countPost() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT count(id) FROM posts');
+        $totalPost = $req->fetchColumn();
+
+        return $totalPost;
     }
 }
