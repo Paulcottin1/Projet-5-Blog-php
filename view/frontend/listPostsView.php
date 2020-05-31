@@ -36,7 +36,7 @@
         for($i = 1; $i <= $numberPages; $i++) {
             ?> <a href="index.php?action=blog&page=<?php echo $i; ?>" class="btn btn-dark col-1"><?php echo $i; ?></a> <?php
         }
-        if($_GET['page'] < $numberPages) { ?>
+        if(!empty($_GET['page']) && $_GET['page'] < $numberPages) { ?>
             <a href="index.php?action=blog&page=<?php if(!empty($_GET['page'])){ echo $_GET['page'] + 1; } else { echo 2; } ?>" class="btn btn-dark col-1"> > </a>
         <?php } ?>
         <a href="index.php?action=blog&page=<?php echo $numberPages; ?>" class="btn btn-dark col-2"> >></a>

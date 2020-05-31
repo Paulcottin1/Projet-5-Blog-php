@@ -23,8 +23,10 @@ Class FrontendController {
 
     public function post()
     {
+        $commentManager = new CommentManager;
         $manager = new PostManager;
         $post = $manager->getPost($_GET['id']);
+        $numberPages = ceil($commentManager->countComment() / 10);
         
         require('view/frontend/postView.php');
     }
