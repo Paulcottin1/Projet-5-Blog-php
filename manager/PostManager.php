@@ -49,11 +49,31 @@ Class PostManager extends AbstractManager
         return $post;
     }
 
-    public function addPost($title, $content, $img)
+    public function addPost($title, $content, $img, $chapo)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO posts(title, content, creation_date, img) VALUES(?, ?, NOW(), ?)');
-        $affectedLines = $comments->execute(array($title, $content, $img));
+        $comments = $db->prepare('INSERT INTO posts(title, content, creation_date, img, chapo) VALUES(?, ?, NOW(), ?, ?)');
+        $affectedLines = $comments->execute(array($title, $content, $img, $chapo));
+
+        return $affectedLines;
+    }
+
+    public function update($id, $title, $chapo,  $content, $img) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET title= ? , content = ? , img = ? , chapo = ? WHERE id = '.$id);
+        $req->bindValue(1, $title);
+        $req->bindValue(2, $content);
+        $req->bindValue(3, $img);
+        $req->bindValue(4, $chapo);
+        $affectedLines = $req->execute();
+
+        return $affectedLines;
+    }
+
+    public function delete($postId) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM `posts` WHERE id = ?');
+        $affectedLines = $req->execute(array($postId));
 
         return $affectedLines;
     }
