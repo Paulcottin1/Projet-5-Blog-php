@@ -19,6 +19,7 @@ Class FrontendController {
         $posts = $manager->getPosts($limite);
 
         require('view/frontend/listPostsView.php');
+        require('view/frontend/paging.php');
     }
 
     public function post()
@@ -29,6 +30,7 @@ Class FrontendController {
         $numberPages = ceil($commentManager->countComment() / 10);
         
         require('view/frontend/postView.php');
+        require('view/frontend/paging.php');
     }
 
     public function addComment($postId, $author, $comment)
