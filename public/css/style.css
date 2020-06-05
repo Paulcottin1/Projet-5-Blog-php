@@ -196,3 +196,9 @@ a {
     transform: translate(-50%, -50%);
     left: 50%;
 }
+
+/* adminPost */
+
+.admin-post a {
+    color: black !important;
+}

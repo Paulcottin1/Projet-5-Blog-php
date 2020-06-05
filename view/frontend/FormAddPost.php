@@ -4,11 +4,14 @@
 <?php ob_start(); ?>
 <div>
     <h1>Ajouter un blog post !</h1>
-
     <form action="?action=addPost" method="post" enctype="multipart/form-data">
         <div>
             <label for="title"> Titre </label>
             <input type="text" name="title">
+        </div>
+        <div>
+            <label for="chapo"> Chapo </label>
+            <input type="text" name="chapo">
         </div>
         <div>
             <label for="content"> Contenu </label>

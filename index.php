@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('vendor/autoload.php');
 use App\controller\FrontendController;
 
@@ -30,37 +31,8 @@ if (isset($_GET['action'])) {
         $controller->formAddPost();
     }
     elseif($_GET['action'] == 'addPost') {
-        define('TARGET', './public/image/');    // Repertoire cible
-        define('MAX_SIZE', 100000);    // Taille max en octets du fichier
-        define('WIDTH_MAX', 2000);    // Largeur max de l'image en pixels
-        define('HEIGHT_MAX', 2000);    // Hauteur max de l'image en pixels
-        
-        $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
-        $infosImg = array();
-        
-        $imageName = '';
-
-        $infosImg = getimagesize($_FILES['file']['tmp_name']); 
-        $extension  = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-
-        if(!in_array(strtolower($extension),$tabExt)) {
-            echo 'L\'extension du fichier est incorrecte !';
-        }
-        elseif($infosImg[2] < 1 && $infosImg[2] > 14){
-            echo 'Le fichier à uploader n\'est pas une image !';
-        }
-        elseif(($infosImg[0] > WIDTH_MAX) && ($infosImg[1] > HEIGHT_MAX) && (filesize($_FILES['file']['tmp_name']) > MAX_SIZE)){
-            echo 'Erreur dans les dimensions de l\'image !';
-        }
-        elseif(!isset($_FILES['file']['error']) && UPLOAD_ERR_OK != $_FILES['file']['error']){
-            echo 'Une erreur interne a empêché l\'uplaod de l\'image';
-        } else {
-            $imageName = md5(uniqid()) .'.'. $extension;
-            if(!move_uploaded_file($_FILES['file']['tmp_name'], TARGET.$imageName)){
-                echo 'Problème lors de l\'upload !';
-            }
-            $controller->addPost($_POST['title'], $_POST['content'], $imageName);             
-        }
+        $controller = new FrontendController();
+        $controller->addPost();
     }
     elseif($_GET['action'] == 'blog') {
         $controller = new FrontendController();
@@ -88,6 +60,21 @@ if (isset($_GET['action'])) {
                 echo 'Veuillez remplir tous les champs';
             }
         }
+    }
+    elseif($_GET['action'] == 'adminPost') {
+        $controller = new FrontendController();
+        $controller->adminPost(10);
+    }
+    elseif($_GET['action'] == 'delete' && isset($_GET['id'])) {
+            $controller->delete($_GET['id']);
+    }
+    elseif($_GET['action'] == 'formUpdatePost') {
+        $controller = new FrontendController();
+        $controller->formUpdate($_GET['id']);
+    }
+    elseif($_GET['action'] == 'update') {
+        $controller = new FrontendController();
+        $controller->update();
     }
 } else {
     $controller = new FrontendController();
