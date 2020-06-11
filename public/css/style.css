@@ -202,3 +202,9 @@ a {
 .admin-post a {
     color: black !important;
 }
+
+/* adminComment */
+
+.modComment a {
+    color: black !important;
+}
