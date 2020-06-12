@@ -84,6 +84,22 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->update();
     }
+    elseif($_GET['action'] == 'userForm') {
+        $controller = new FrontendController();
+        $controller->userForm();
+    }
+    elseif($_GET['action'] == 'addUser') {
+        $controller = new FrontendController();
+        $controller->addUser();
+    }
+    elseif($_GET['action'] == 'login') {
+        $controller = new FrontendController();
+        $controller->login();
+    }
+    elseif($_GET['action'] == 'connection') {
+        $controller = new FrontendController();
+        $controller->connection();
+    }
 } else {
     $controller = new FrontendController();
     $controller->home();
