@@ -3,7 +3,25 @@ namespace App\manager;
 use App\entity\Comment;
 
 Class CommentManager extends AbstractManager
-{
+{   
+    public function getCommentUnPublished() {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM comments WHERE publish = 0');
+        $req->execute();
+        
+        $comments = [];
+        while($data = $req->fetch())
+        {
+            $comment = new Comment;
+            $comments[] = $comment
+            ->setId($data['id'])
+            ->setAuthor($data['author'])
+            ->setComment($data['comment'])
+            ->setPostId($data['post_id']);
+        }
+        
+        return $comments;
+    }
     public function getComments($postId)
     {
         if(!empty($_GET['page'])) {
@@ -14,10 +32,9 @@ Class CommentManager extends AbstractManager
 
         $debut = ($page - 1) * 10;
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC LIMIT 10 OFFSET '.$debut);
+        $req = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? AND publish = 1 ORDER BY comment_date DESC LIMIT 10 OFFSET '.$debut);
         $req->execute(array($postId));
 
-        
         $comments = [];
         while($data = $req->fetch())
         {
@@ -60,5 +77,13 @@ Class CommentManager extends AbstractManager
         $totalPost = $req->fetchColumn();
 
         return $totalPost;
+    }
+
+    public function publishComment($commentId) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET publish = 1 WHERE id = '.$commentId);
+        $affectedLines = $req->execute();
+
+        return $affectedLines;
     }
 }

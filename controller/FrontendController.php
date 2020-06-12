@@ -52,6 +52,26 @@ Class FrontendController {
         $posts = $manager->getPosts($limite);
 
         require('view/frontend/adminPost.php');
+        require('view/frontend/paging.php');
+    }
+
+    public function adminComment() {
+        $manager = new CommentManager;
+        $comments = $manager->getCommentUnPublished();
+        
+        require('view/frontend/adminComment.php');
+        require('view/frontend/paging.php');
+    }
+
+    public function publishComment() {
+        $manager = new CommentManager;
+        $affectedLines = $manager->publishComment($_GET['id']);
+        if ($affectedLines === false) {
+            die('Impossible de valider le commentaire !');
+        } else {
+            $_SESSION['message'] = 'Le post a bien été mis à jour';
+            header('Location: index.php?action=adminComment');
+        } 
     }
 
     public function formAddPost()

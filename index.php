@@ -65,6 +65,14 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->adminPost(10);
     }
+    elseif($_GET['action'] == 'adminComment') {
+        $controller = new FrontendController();
+        $controller->adminComment();
+    }
+    elseif($_GET['action'] == 'publishComment') {
+        $controller = new FrontendController();
+        $controller->publishComment();
+    }
     elseif($_GET['action'] == 'delete' && isset($_GET['id'])) {
             $controller->delete($_GET['id']);
     }
