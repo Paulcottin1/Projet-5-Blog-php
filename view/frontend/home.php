@@ -3,6 +3,7 @@
 
 <?php ob_start(); ?>
 
+<?php if(isset($_SESSION['message'])) { echo '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
 <div class="container-fluid name">
     <h2 class="center"> Paul Cottin, développeur web</h2></br>
     <p class="center">Phrase d'accroche</p>

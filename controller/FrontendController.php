@@ -2,6 +2,7 @@
 namespace App\controller;
 use App\manager\PostManager;
 use App\manager\CommentManager;
+use App\manager\UserManager;
 
 Class FrontendController {
 
@@ -133,6 +134,52 @@ Class FrontendController {
             $_SESSION['message'] = 'Le post a bien été mis à jour';
             header('Location: index.php?action=adminPost');
         } 
+    }
+
+    public function userForm() {
+
+        require('view/frontend/userForm.php');
+    }
+
+    public function addUser() {
+        if(!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['phone'])) {
+            $manager = new UserManager;
+            $affectedLines = $manager->addUser($_POST['firstname'], $_POST['name'], $_POST['email'], md5($_POST['password']), $_POST['phone']);
+
+            if ($affectedLines === false) {
+                die('Impossible de créer votre compte');
+            } else {
+                $_SESSION['message'] = 'Votre compte a bien été créer, vous pouvez vous connecter';
+                header('Location: index.php?action=login');
+            }
+    
+        } else {
+            $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
+            header('Location: index.php?action=userForm');
+        }
+    }
+
+    public function login() {
+        require('view/frontend/login.php');
+    }
+
+    public function connection() {
+        $manager = new UserManager;
+        if(!empty($_POST['email']) && !empty($_POST['password'])) {
+            if($manager->connection($_POST['email'], md5($_POST['password'])) === false ) {
+                $_SESSION['message'] = 'l\'email ou le mot de passe n\'est pas correct';
+                header('Location: index.php?action=login');
+            } else {
+                $user = $manager->connection($_POST['email'], md5($_POST['password']));
+                $_SESSION['message'] = 'Vous êtes connecté';
+                $_SESSION['user'] = serialize($user);
+                header('Location: index.php');
+            } 
+        } else {
+            $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
+            header('Location: index.php?action=login');
+        }
+        
     }
 
     public function contact()

@@ -18,6 +18,15 @@
                     <a class="nav-item nav-link active" href="index.php?action=blog">Blog</a>
                     <a class="nav-item nav-link active" href="index.php?action=contact">Contact</a>
                     <a class="nav-item nav-link active" href="index.php?action=adminPost">Admin</a>
+                    <a class="nav-item nav-link active" href="index.php?action=login">Connexion</a>
+                    <?php 
+                    if(!empty($_SESSION['user'])) { 
+                        $user = unserialize($_SESSION['user']);
+                        ?>
+                        <a class="nav-item nav-link active"> Bonjour <?php echo $user->getFirstname()." ".$user->getLastname(); ?></a>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </nav>
