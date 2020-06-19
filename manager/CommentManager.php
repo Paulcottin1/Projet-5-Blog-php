@@ -48,7 +48,7 @@ Class CommentManager extends AbstractManager
     public function getComment($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, author, comment FROM comments WHERE id = ?');
+        $req = $db->prepare('SELECT id, user_id, author, comment FROM comments WHERE id = ?');
         $req->execute(array($id));
 
         $data = $req->fetch();
@@ -57,16 +57,17 @@ Class CommentManager extends AbstractManager
         $comment
         ->setId($data['id'])
         ->setAuthor($data['author'])
+        ->setUserId($data['user_id'])
         ->setComment($data['comment']);
 
         return $comment;
     }
 
-    public function postComment($postId, $author, $comment)
+    public function postComment($postId, $userId, $author, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
-        $affectedLines = $comments->execute(array($postId, $author, $comment));
+        $comments = $db->prepare('INSERT INTO comments(post_id, user_id, author, comment, comment_date) VALUES(?, ?, ?, ?, NOW())');
+        $affectedLines = $comments->execute(array($postId, $userId, $author, $comment));
 
         return $affectedLines;
     }

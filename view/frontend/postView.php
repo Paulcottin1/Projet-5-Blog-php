@@ -24,10 +24,13 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
     <div class="row">
         <h2 class="col-md-12">Écrire un commentaire :</h2>
     </div>
+    <?php 
+    if(!empty($_SESSION['user'])) { 
+    $user = unserialize($_SESSION['user']);                ?>
     <form action="index.php?action=addComment&amp;id=<?= $post->getId() ?>" method="post">
         <div>
             <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" />
+            <p><?php echo $user->getLastname() . ' ' . $user->getFirstname(); ?></p>
         </div>
         <div>
             <label for="comment">Commentaire</label><br />
@@ -37,6 +40,12 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
             <input type="submit" class="btn btn-secondary" />
         </div>
     </form>
+    <?php
+    } else { ?>
+        <a class="btn btn-dark" href="index.php?action=login">Connectez vous pour écrire un commentaire</a>
+    <?php 
+    }
+    ?>
 </div>
 <div class="comments container">
     <div class="row">

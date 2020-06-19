@@ -34,15 +34,27 @@ Class FrontendController {
         require('view/frontend/paging.php');
     }
 
-    public function addComment($postId, $author, $comment)
+    public function addComment()
     {   
         $manager = new CommentManager;
-        $affectedLines = $manager->postComment($postId, $author, $comment);
-
+        $user = unserialize($_SESSION['user']);
+        
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            if (!empty($user->getFirstname()) && !empty($user->getLastname()) && !empty($user->getId()) && !empty($_POST['comment'])) {
+                $author = $user->getLastname() . ' ' . $user->getFirstname();
+                $affectedLines = $manager->postComment($_GET['id'], $user->getId(), $author, $_POST['comment']);
+            }
+            else {
+                echo 'Erreur : tous les champs ne sont pas remplis !';
+            }
+        }
+        else {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
         if ($affectedLines === false) {
             die('Impossible d\'ajouter le commentaire !');
         } else {
-            header('Location: index.php?action=post&id=' . $postId);
+            header('Location: index.php?action=post&id=' . $_GET['id']);
         }
     }
 
