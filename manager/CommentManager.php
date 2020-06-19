@@ -4,7 +4,8 @@ use App\entity\Comment;
 
 Class CommentManager extends AbstractManager
 {   
-    public function getCommentUnPublished() {
+    public function getCommentUnPublished()
+     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM comments WHERE publish = 0');
         $req->execute();
@@ -72,7 +73,18 @@ Class CommentManager extends AbstractManager
         return $affectedLines;
     }
 
-    public function countComment(){
+    public function updateComment($id, $comment) 
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment = ? WHERE id = '.$id);
+        $req->bindValue(1, $comment);
+        $affectedLines = $req->execute();
+
+        return $affectedLines;
+    }
+
+    public function countComment()
+    {
         $db = $this->dbConnect();
         $req = $db->query('SELECT count(id) FROM comments');
         $totalPost = $req->fetchColumn();
@@ -80,7 +92,8 @@ Class CommentManager extends AbstractManager
         return $totalPost;
     }
 
-    public function publishComment($commentId) {
+    public function publishComment($commentId) 
+    {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET publish = 1 WHERE id = '.$commentId);
         $affectedLines = $req->execute();

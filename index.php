@@ -95,7 +95,12 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->logout();
     }
-} else {
+    elseif($_GET['action'] == 'submitUpdate') {
+            $controller = new FrontendController();
+            $controller->updateComment();
+    }
+} 
+ else {
     $controller = new FrontendController();
     $controller->home();
-}
+} 

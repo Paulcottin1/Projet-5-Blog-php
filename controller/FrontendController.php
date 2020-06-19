@@ -58,6 +58,32 @@ Class FrontendController {
         }
     }
 
+    public function updateComment() 
+    {
+        $manager = new CommentManager;
+        if(!empty($_POST['comment'])) {
+            if(!empty($_GET['comment_id'])) {
+                $affectedLines = $manager->updateComment($_GET['comment_id'], $_POST['comment']);
+            } else {
+                $_SESSION['message'] = 'Erreur : aucun identifiant de commentaire envoyé';
+            }
+            
+        } else {
+            $_SESSION['message'] = 'Le champs commentaire n\'est pas rempli';
+        }
+        if ($affectedLines === false) {
+            die('Impossible de modifier le commentaire !');
+        } else {
+           if(!empty($_GET['page'])) { 
+                $page =  $_GET['page'];
+            } else { 
+                $page = 1; 
+            }
+            $_SESSION['message'] = 'Votre commmentaire a été modifié';
+            header('Location: index.php?action=post&id=' . $_GET['id']  . '&page=' . $page .'#comment');
+        }
+    }
+
     public function adminPost($limite)
     {
         $manager = new PostManager;
