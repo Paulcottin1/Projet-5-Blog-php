@@ -100,6 +100,10 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->connection();
     }
+    elseif($_GET['action'] == 'logout') {
+        $controller = new FrontendController();
+        $controller->logout();
+    }
 } else {
     $controller = new FrontendController();
     $controller->home();

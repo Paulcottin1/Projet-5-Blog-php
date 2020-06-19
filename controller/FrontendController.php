@@ -171,7 +171,6 @@ Class FrontendController {
                 header('Location: index.php?action=login');
             } else {
                 $user = $manager->connection($_POST['email'], md5($_POST['password']));
-                $_SESSION['message'] = 'Vous êtes connecté';
                 $_SESSION['user'] = serialize($user);
                 header('Location: index.php');
             } 
@@ -180,6 +179,11 @@ Class FrontendController {
             header('Location: index.php?action=login');
         }
         
+    }
+
+    public function logout() {
+        unset($_SESSION['user']);
+        $this->home();
     }
 
     public function contact()
