@@ -160,6 +160,6 @@ Class User {
      */
     public function getRole() : string 
     {
-        return $this->id;
+        return $this->role;
     }
 }

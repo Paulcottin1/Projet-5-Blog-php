@@ -84,22 +84,74 @@ Class FrontendController {
         }
     }
 
+    public function isAdmin() {
+        if(!empty($_SESSION['user'])){    
+           $user = unserialize($_SESSION['user']);
+           if($user->getRole() == 'admin') {
+                return true;
+           } else {
+               return false;
+           }
+        } else {
+            return false;
+        }
+    }
+
     public function adminPost($limite)
     {
         $manager = new PostManager;
         $numberPages = ceil($manager->countPost() / $limite);
         $posts = $manager->getPosts($limite);
-
-        require('view/frontend/adminPost.php');
-        require('view/frontend/paging.php');
+        
+        if($this->isAdmin() === true) {
+            require('view/frontend/adminPost.php');
+            require('view/frontend/paging.php');
+        } else {
+            $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
+            header('Location: index.php');
+        }
     }
 
     public function adminComment() {
         $manager = new CommentManager;
         $comments = $manager->getCommentUnPublished();
         
-        require('view/frontend/adminComment.php');
+        if($this->isAdmin() === true) {
+            require('view/frontend/adminComment.php');
+            require('view/frontend/paging.php');
+        } else {
+            $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
+            header('Location: index.php');
+        }
+    }
+
+    public function userModeration() 
+    {
+        $manager = new UserManager;
+        $users = $manager->getUsers(10);
+
+        require('view/frontend/userModeration.php');
         require('view/frontend/paging.php');
+    }
+
+    public function userUpdateRole() 
+    {
+        $manager = new UserManager;
+        if(!empty($_GET['id'])){
+            if(!empty($_POST['role'])) {
+                $affectedLines = $manager->updateRole($_GET['id'], $_POST['role']);
+            } else {
+                $_SESSION['message'] = 'Veuillez sélectionner le nouveau rôle de l\'utilisateur';
+            }
+        } else {
+            $_SESSION['message'] = 'Erreur : identifiant de l\'utilisateur non-trouvé';
+        }
+        if ($affectedLines === false) {
+            die('Impossible de modifier le rôle de l\'utilisateur');
+        } else {
+            $_SESSION['message'] = 'Le rôle de l\'utilisateur a bien été modifié';
+            header('Location: index.php?action=userModeration');
+        }
     }
 
     public function publishComment() {
@@ -115,7 +167,12 @@ Class FrontendController {
 
     public function formAddPost()
     {
-        require('view/frontend/formAddPost.php');
+        if($this->isAdmin() === true) {
+            require('view/frontend/formAddPost.php');
+        } else {
+            $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
+            header('Location: index.php');
+        }
     }
 
     public function addPost()
@@ -144,7 +201,13 @@ Class FrontendController {
     public function formUpdate($postId) {
         $manager = new PostManager;
         $post = $manager->getPost($postId);
-        require('view/frontend/updatePost.php');
+
+        if($this->isAdmin() === true) {
+            require('view/frontend/updatePost.php');
+        } else {
+            $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
+            header('Location: index.php');
+        }
     }
 
     public function update() {
@@ -216,7 +279,6 @@ Class FrontendController {
             $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
             header('Location: index.php?action=login');
         }
-        
     }
 
     public function logout() {
@@ -260,5 +322,39 @@ Class FrontendController {
             }         
         }
         return $imageName;
+    }
+
+    public function account()
+    {     
+        if(!empty($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            require('view/frontend/account.php');
+        } else {
+            $_SESSION['message'] = 'Aucun utilisateur connecté';
+            header('Location: index.php');
+        } 
+    }
+
+    public function updateUser() {
+        $manager = new UserManager;
+        if(!empty($_GET['id'])) {
+            if(!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['phone'])) {
+                $affectedLines = $manager->update($_GET['id'], $_POST['name'], $_POST['firstname'], $_POST['phone'], $_POST['email'], md5($_POST['password']));
+            } else {
+                $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
+                header('Location: index.php?action=account');
+            }
+        } else {
+            $_SESSION['message'] = 'Aucun utilisateur trouvé';
+            header('Location: index.php');
+        }
+        
+        if ($affectedLines === false) {
+            die('Impossible de modifier les informations de votre compte');
+        } else {
+            $this->connection();
+            $_SESSION['message'] = 'Votre compte a bien été modifié !';
+            header('Location: index.php?action=account');
+        }
     }
 }
