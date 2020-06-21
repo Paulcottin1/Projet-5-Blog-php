@@ -15,17 +15,8 @@ if (isset($_GET['action'])) {
         }
     }
     elseif ($_GET['action'] == 'addComment') {
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-            if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                $controller->addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-            }
-            else {
-                echo 'Erreur : tous les champs ne sont pas remplis !';
-            }
-        }
-        else {
-            echo 'Erreur : aucun identifiant de billet envoyé';
-        }
+        $controller = new FrontendController();
+        $controller->addComment();
     }
     elseif($_GET['action'] == 'formAddPost'){
         $controller->formAddPost();
@@ -104,7 +95,12 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->logout();
     }
-} else {
+    elseif($_GET['action'] == 'submitUpdate') {
+            $controller = new FrontendController();
+            $controller->updateComment();
+    }
+} 
+ else {
     $controller = new FrontendController();
     $controller->home();
-}
+} 

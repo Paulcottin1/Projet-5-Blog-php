@@ -34,15 +34,53 @@ Class FrontendController {
         require('view/frontend/paging.php');
     }
 
-    public function addComment($postId, $author, $comment)
+    public function addComment()
     {   
         $manager = new CommentManager;
-        $affectedLines = $manager->postComment($postId, $author, $comment);
-
+        $user = unserialize($_SESSION['user']);
+        
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            if (!empty($user->getFirstname()) && !empty($user->getLastname()) && !empty($user->getId()) && !empty($_POST['comment'])) {
+                $author = $user->getLastname() . ' ' . $user->getFirstname();
+                $affectedLines = $manager->postComment($_GET['id'], $user->getId(), $author, $_POST['comment']);
+            }
+            else {
+                echo 'Erreur : tous les champs ne sont pas remplis !';
+            }
+        }
+        else {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
         if ($affectedLines === false) {
             die('Impossible d\'ajouter le commentaire !');
         } else {
-            header('Location: index.php?action=post&id=' . $postId);
+            header('Location: index.php?action=post&id=' . $_GET['id']);
+        }
+    }
+
+    public function updateComment() 
+    {
+        $manager = new CommentManager;
+        if(!empty($_POST['comment'])) {
+            if(!empty($_GET['comment_id'])) {
+                $affectedLines = $manager->updateComment($_GET['comment_id'], $_POST['comment']);
+            } else {
+                $_SESSION['message'] = 'Erreur : aucun identifiant de commentaire envoyé';
+            }
+            
+        } else {
+            $_SESSION['message'] = 'Le champs commentaire n\'est pas rempli';
+        }
+        if ($affectedLines === false) {
+            die('Impossible de modifier le commentaire !');
+        } else {
+           if(!empty($_GET['page'])) { 
+                $page =  $_GET['page'];
+            } else { 
+                $page = 1; 
+            }
+            $_SESSION['message'] = 'Votre commmentaire a été modifié';
+            header('Location: index.php?action=post&id=' . $_GET['id']  . '&page=' . $page .'#comment');
         }
     }
 

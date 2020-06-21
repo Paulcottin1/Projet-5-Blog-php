@@ -4,7 +4,8 @@ use App\entity\Comment;
 
 Class CommentManager extends AbstractManager
 {   
-    public function getCommentUnPublished() {
+    public function getCommentUnPublished()
+     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM comments WHERE publish = 0');
         $req->execute();
@@ -48,7 +49,7 @@ Class CommentManager extends AbstractManager
     public function getComment($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, author, comment FROM comments WHERE id = ?');
+        $req = $db->prepare('SELECT id, user_id, author, comment FROM comments WHERE id = ?');
         $req->execute(array($id));
 
         $data = $req->fetch();
@@ -57,21 +58,33 @@ Class CommentManager extends AbstractManager
         $comment
         ->setId($data['id'])
         ->setAuthor($data['author'])
+        ->setUserId($data['user_id'])
         ->setComment($data['comment']);
 
         return $comment;
     }
 
-    public function postComment($postId, $author, $comment)
+    public function postComment($postId, $userId, $author, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
-        $affectedLines = $comments->execute(array($postId, $author, $comment));
+        $comments = $db->prepare('INSERT INTO comments(post_id, user_id, author, comment, comment_date) VALUES(?, ?, ?, ?, NOW())');
+        $affectedLines = $comments->execute(array($postId, $userId, $author, $comment));
 
         return $affectedLines;
     }
 
-    public function countComment(){
+    public function updateComment($id, $comment) 
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment = ? WHERE id = '.$id);
+        $req->bindValue(1, $comment);
+        $affectedLines = $req->execute();
+
+        return $affectedLines;
+    }
+
+    public function countComment()
+    {
         $db = $this->dbConnect();
         $req = $db->query('SELECT count(id) FROM comments');
         $totalPost = $req->fetchColumn();
@@ -79,7 +92,8 @@ Class CommentManager extends AbstractManager
         return $totalPost;
     }
 
-    public function publishComment($commentId) {
+    public function publishComment($commentId) 
+    {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET publish = 1 WHERE id = '.$commentId);
         $affectedLines = $req->execute();
