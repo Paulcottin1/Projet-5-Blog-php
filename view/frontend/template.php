@@ -19,11 +19,19 @@
                     <a class="nav-item nav-link active" href="index.php?action=contact">Contact</a>
                     <?php 
                     if(!empty($_SESSION['user'])) { 
-                        $user = unserialize($_SESSION['user']);
-                        ?>
-                        <a class="nav-item nav-link active" href="index.php?action=adminPost">Admin</a>
-                        <a class="nav-item nav-link active"> Bonjour <?php echo $user->getFirstname()." ".$user->getLastname(); ?></a>
-                        <a class="nav-item nav-link active" href="?action=logout"> Déconnexion</a>
+                        $user = unserialize($_SESSION['user']); ?>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bonjour <?php echo $user->getFirstname()." ".$user->getLastname(); ?>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <?php if($user->getRole() == 'admin' ) { ?>
+                                    <a class="nav-item nav-link active dropdown-item" href="index.php? action=adminPost">Admin</a>
+                                <?php } ?>
+                                <a class="nav-item nav-link active dropdown-item" href="?action=account"> Mon compte</a>
+                                <a class="nav-item nav-link active dropdown-item" href="?action=logout"> Déconnexion</a>
+                            </div>
+                        </div>     
                     <?php
                     } else { ?>
                         <a class="nav-item nav-link active" href="index.php?action=login">Connexion</a>

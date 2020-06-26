@@ -99,6 +99,22 @@ if (isset($_GET['action'])) {
             $controller = new FrontendController();
             $controller->updateComment();
     }
+    elseif($_GET['action'] == 'userModeration') {
+        $controller = new FrontendController();
+        $controller->userModeration();
+    }
+    elseif($_GET['action'] == 'userUpdateRole') {
+        $controller = new FrontendController();
+        $controller->userUpdateRole();
+    }
+    elseif($_GET['action'] == 'account') {
+        $controller = new FrontendController();
+        $controller->account();
+    }
+    elseif($_GET['action'] == 'updateUser') {
+        $controller = new FrontendController();
+        $controller->updateUser();
+    }
 } 
  else {
     $controller = new FrontendController();

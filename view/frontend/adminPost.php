@@ -4,11 +4,12 @@
 
 <?php ob_start(); ?>
 <div class="row center">
-    <h1 class="col"> Gestion des blog posts</h1>
+    <h2 class="col-12"> Modération des utilisateurs</h2>
+    <a href="index.php?action=userModeration" class="btn btn-dark col-12"> Modérer </a>
 </div>
 <div class="row center">
-<h2 class="col-12"> Ajouter un blog post</h2>
-<a href="index.php?action=formAddPost" class="btn btn-dark col-12"> + </a>
+    <h2 class="col-12"> Ajouter un blog post</h2>
+    <a href="index.php?action=formAddPost" class="btn btn-dark col-12"> + </a>
 </div>
 <div class="row">
     <h2 class="col-12 center">Modération des commentaires </h2>
