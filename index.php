@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->addComment();
     }
-    elseif($_GET['action'] == 'formAddPost'){
+    elseif($_GET['action'] == 'formAddPost') {
         $controller->formAddPost();
     }
     elseif($_GET['action'] == 'addPost') {
@@ -29,11 +29,11 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->listPosts(8);
     }
-    elseif($_GET['action'] == 'contact'){
+    elseif($_GET['action'] == 'contact') {
         $controller = new FrontendController();
         $controller->contact();
 
-        if(isset($_POST['email'])){
+        if(isset($_POST['email'])) {
             if(!empty($_POST['name']) && !empty($_POST['subject']) && !empty($_POST['message'])) {
             $toEmail = 'cottin.paul45@gmail.com';
             $EmailSubject = 'Blog contact form'; 
