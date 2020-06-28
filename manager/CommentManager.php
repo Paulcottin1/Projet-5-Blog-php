@@ -11,9 +11,8 @@ Class CommentManager extends AbstractManager
         $req->execute();
         
         $comments = [];
-        while($data = $req->fetch())
-        {
-            $comment = new Comment;
+        while($data = $req->fetch()) {
+            $comment = new Comment();
             $comments[] = $comment
             ->setId($data['id'])
             ->setAuthor($data['author'])
@@ -33,12 +32,15 @@ Class CommentManager extends AbstractManager
 
         $debut = ($page - 1) * 10;
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? AND publish = 1 ORDER BY comment_date DESC LIMIT 10 OFFSET '.$debut);
+        $req = $db->prepare(
+            'SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') 
+            AS comment_date_fr FROM comments WHERE post_id = ? AND publish = 1 ORDER BY comment_date 
+            DESC LIMIT 10 OFFSET '.$debut
+        );
         $req->execute(array($postId));
 
         $comments = [];
-        while($data = $req->fetch())
-        {
+        while($data = $req->fetch()) {
             $comment = $this->getComment($data['id']);
             $comments[] = $comment;
         }
@@ -53,7 +55,7 @@ Class CommentManager extends AbstractManager
         $req->execute(array($id));
 
         $data = $req->fetch();
-        $comment = new Comment;
+        $comment = new Comment();
             
         $comment
         ->setId($data['id'])
@@ -67,7 +69,10 @@ Class CommentManager extends AbstractManager
     public function postComment($postId, $userId, $author, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(post_id, user_id, author, comment, comment_date) VALUES(?, ?, ?, ?, NOW())');
+        $comments = $db->prepare(
+            'INSERT INTO comments(post_id, user_id, author, comment, comment_date) 
+            VALUES(?, ?, ?, ?, NOW())'
+        );
         $affectedLines = $comments->execute(array($postId, $userId, $author, $comment));
 
         return $affectedLines;

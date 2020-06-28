@@ -17,8 +17,7 @@ Class UserManager extends AbstractManager {
         $req = $db->query('SELECT * FROM user ORDER BY creation_date DESC LIMIT '.$limite.' OFFSET '.$debut);
         $users = [];
 
-        while($data = $req->fetch())
-        {
+        while($data = $req->fetch()) {
             $user = $this->getUser($data['id']);
             $users[] = $user;
         }
@@ -32,7 +31,7 @@ Class UserManager extends AbstractManager {
         $req = $db->prepare('SELECT * FROM user WHERE id = ?');
         $req->execute(array($userId));
         $data = $req->fetch();
-        $user = new User;
+        $user = new User();
         
         $user
         ->setId($data['id'])
@@ -46,7 +45,8 @@ Class UserManager extends AbstractManager {
         return $user;
     }
 
-    public function updateRole($id, $role) {
+    public function updateRole($id, $role)
+    {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE user SET role = ? WHERE id = '.$id);
         $req->bindValue(1, $role);
@@ -55,24 +55,28 @@ Class UserManager extends AbstractManager {
         return $affectedLines;
     }
 
-    public function addUser($firstname, $name, $email, $password, $telephone) {
-
+    public function addUser($firstname, $name, $email, $password, $telephone)
+    {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO user(firstname, name_user, creation_date, email, user_password, phone) VALUES(?, ?, NOW(), ?, ?, ?)');
+        $comments = $db->prepare(
+            'INSERT INTO user(firstname, name_user, creation_date, email, user_password, phone)
+            VALUES(?, ?, NOW(), ?, ?, ?)'
+        );
         $affectedLines = $comments->execute(array($firstname, $name, $email, $password, $telephone));
 
         return $affectedLines;
     }
 
 
-    public function connection($email, $password) {
+    public function connection($email, $password)
+    {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM user WHERE email = ? AND user_password = ?');
         $req->execute(array($email, $password));
         $data = $req->fetch();
         
         if($data != false) {
-            $user = new User;
+            $user = new User();
             $user
             ->setId($data['id'])
             ->setFirstName($data['firstname'])
@@ -89,9 +93,14 @@ Class UserManager extends AbstractManager {
         }
     }
 
-    public function update($id, $name, $firstname, $phone, $email, $password) {
+    public function update($id, $name, $firstname, $phone, $email, $password)
+     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE user SET firstname= ?, name_user= ?, email= ?, phone= ?, user_password= ? WHERE id = '.$id);
+        $req = $db->prepare(
+            'UPDATE user SET firstname= ?, name_user= ?,
+            email= ?, phone= ?, user_password= ? WHERE id = '.$id
+        );
+
         $req->bindValue(1, $firstname);
         $req->bindValue(2, $name);
         $req->bindValue(3, $email);

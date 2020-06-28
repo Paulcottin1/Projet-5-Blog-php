@@ -53,12 +53,12 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
     </div>
     <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <?php
-    foreach($post->getComments() as $comment){
+    foreach($post->getComments() as $comment) {
     ?>  
         <div class="comment">
             <p class="author"><strong><?= htmlspecialchars($comment->getAuthor()) ?> :</strong> </p>
             <?php
-            if(isset($_GET['comment']) == 'update' && $comment->getUserId() === $user->getId()){
+            if(isset($_GET['comment']) == 'update' && $comment->getUserId() === $user->getId()) {
             ?>
                 <form action="?action=submitUpdate&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) { echo $_GET['page']; } else { echo 1; } ?>&comment_id=<?php echo $comment->getId(); ?>" method="post">
                     <textarea name="comment" id="comment" cols="30" rows="10"><?= nl2br(htmlspecialchars($comment->getComment())) ?></textarea>
@@ -72,9 +72,10 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
             }
             ?>
             <?php
-            if($comment->getUserId() === $user->getId() && !isset($_GET['comment'])){
+            if($comment->getUserId() === $user->getId() && !isset($_GET['comment'])) {
             ?>
-                <a href="?action=post&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) { echo $_GET['page']; } else { echo 1; } ?>&comment=update#comment" class="btn btn-dark"> Modifier</a>
+                <a href="?action=post&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) {
+                echo $_GET['page']; } else { echo 1; } ?>&comment=update#comment" class="btn btn-dark"> Modifier</a>
             <?php
             }
             ?>
