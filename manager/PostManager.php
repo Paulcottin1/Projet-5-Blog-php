@@ -38,9 +38,10 @@ Class PostManager extends AbstractManager
         $req = $db->prepare(
             'SELECT id, title, content, img, chapo, DATE_FORMAT
             (creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS 
-            creation_date_fr FROM posts WHERE id = ?'
+            creation_date_fr FROM posts WHERE id = :id'
         );
-        $req->execute(array($postId));
+        $req->bindValue(':id', $postId);
+        $req->execute();
         
         $data = $req->fetch();
         $post = new Post();
@@ -59,11 +60,15 @@ Class PostManager extends AbstractManager
     public function addPost($title, $content, $img, $chapo)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare(
+        $req = $db->prepare(
             'INSERT INTO posts(title, content, creation_date, img, chapo)
-            VALUES(?, ?, NOW(), ?, ?)'
+            VALUES(:title, :content, NOW(), :img, :chapo)'
         );
-        $affectedLines = $comments->execute(array($title, $content, $img, $chapo));
+        $req->bindValue(':title', $title);
+        $req->bindValue(':content', $content);
+        $req->bindValue(':img', $img);
+        $req->bindValue(':chapo', $chapo);
+        $affectedLines = $req->execute();
 
         return $affectedLines;
     }
@@ -71,11 +76,12 @@ Class PostManager extends AbstractManager
     public function update($id, $title, $chapo,  $content, $img)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE posts SET title= ? , content = ? , img = ? , chapo = ? WHERE id = '.$id);
-        $req->bindValue(1, $title);
-        $req->bindValue(2, $content);
-        $req->bindValue(3, $img);
-        $req->bindValue(4, $chapo);
+        $req = $db->prepare('UPDATE posts SET title= :title , content = :content , img = :img , chapo = :chapo WHERE id = :id');
+        $req->bindValue(':title', $title);
+        $req->bindValue(':content', $content);
+        $req->bindValue(':img', $img);
+        $req->bindValue(':chapo', $chapo);
+        $req->bindValue(':id', $id);
         $affectedLines = $req->execute();
 
         return $affectedLines;
@@ -84,8 +90,9 @@ Class PostManager extends AbstractManager
     public function delete($postId)
      {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM `posts` WHERE id = ?');
-        $affectedLines = $req->execute(array($postId));
+        $req = $db->prepare('DELETE FROM `posts` WHERE id = :id');
+        $req->bindValue(':id', $postId);
+        $affectedLines = $req->execute();
 
         return $affectedLines;
     }

@@ -51,8 +51,9 @@ Class CommentManager extends AbstractManager
     public function getComment($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, user_id, author, comment FROM comments WHERE id = ?');
-        $req->execute(array($id));
+        $req = $db->prepare('SELECT id, user_id, author, comment FROM comments WHERE id = :id');
+        $req->bindValue(':id', $id);
+        $req->execute();
 
         $data = $req->fetch();
         $comment = new Comment();
@@ -69,11 +70,15 @@ Class CommentManager extends AbstractManager
     public function postComment($postId, $userId, $author, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare(
+        $req = $db->prepare(
             'INSERT INTO comments(post_id, user_id, author, comment, comment_date) 
-            VALUES(?, ?, ?, ?, NOW())'
+            VALUES(:postId, :userId, :author, :comment, NOW())'
         );
-        $affectedLines = $comments->execute(array($postId, $userId, $author, $comment));
+        $req->bindValue(':postId', $postId);
+        $req->bindValue(':userId', $userId);
+        $req->bindValue(':author', $author);
+        $req->bindValue(':comment', $comment);
+        $affectedLines = $req->execute();
 
         return $affectedLines;
     }
@@ -81,8 +86,9 @@ Class CommentManager extends AbstractManager
     public function updateComment($id, $comment) 
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE comments SET comment = ? WHERE id = '.$id);
-        $req->bindValue(1, $comment);
+        $req = $db->prepare('UPDATE comments SET comment = :comment WHERE id = :id');
+        $req->bindValue(':comment', $comment);
+        $req->bindValue(':id', $id);
         $affectedLines = $req->execute();
 
         return $affectedLines;
@@ -100,7 +106,8 @@ Class CommentManager extends AbstractManager
     public function publishComment($commentId) 
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE comments SET publish = 1 WHERE id = '.$commentId);
+        $req = $db->prepare('UPDATE comments SET publish = 1 WHERE id = :id');
+        $req->bindValue(':id', $commentId);
         $affectedLines = $req->execute();
 
         return $affectedLines;
