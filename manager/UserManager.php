@@ -28,8 +28,9 @@ Class UserManager extends AbstractManager {
     public function getUser($userId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM user WHERE id = ?');
-        $req->execute(array($userId));
+        $req = $db->prepare('SELECT * FROM user WHERE id = :id');
+        $req->bindValue(':id', $userId);
+        $req->execute();
         $data = $req->fetch();
         $user = new User();
         
@@ -48,8 +49,9 @@ Class UserManager extends AbstractManager {
     public function updateRole($id, $role)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE user SET role = ? WHERE id = '.$id);
-        $req->bindValue(1, $role);
+        $req = $db->prepare('UPDATE user SET role = :role WHERE id = :id');
+        $req->bindValue(':role', $role);
+        $req->bindValue(':id', $id);
         $affectedLines = $req->execute();
 
         return $affectedLines;
@@ -58,11 +60,16 @@ Class UserManager extends AbstractManager {
     public function addUser($firstname, $name, $email, $password, $telephone)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare(
+        $req = $db->prepare(
             'INSERT INTO user(firstname, name_user, creation_date, email, user_password, phone)
-            VALUES(?, ?, NOW(), ?, ?, ?)'
+            VALUES(:firstname, :username, NOW(), :email, :userpassword, :telephone)'
         );
-        $affectedLines = $comments->execute(array($firstname, $name, $email, $password, $telephone));
+        $req->bindValue(':firstname', $firstname);
+        $req->bindValue(':username', $name);
+        $req->bindValue(':email', $email);
+        $req->bindValue(':userpassword', $password);
+        $req->bindValue(':telephone', $telephone);
+        $affectedLines = $req->execute();
 
         return $affectedLines;
     }
@@ -71,10 +78,12 @@ Class UserManager extends AbstractManager {
     public function connection($email, $password)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM user WHERE email = ? AND user_password = ?');
-        $req->execute(array($email, $password));
+        $req = $db->prepare('SELECT * FROM user WHERE email = :email AND user_password = :userpassword');
+        $req->bindValue(':email', $email);
+        $req->bindValue(':userpassword', $password);
+        $req->execute();
         $data = $req->fetch();
-        
+
         if($data != false) {
             $user = new User();
             $user
@@ -97,15 +106,16 @@ Class UserManager extends AbstractManager {
      {
         $db = $this->dbConnect();
         $req = $db->prepare(
-            'UPDATE user SET firstname= ?, name_user= ?,
-            email= ?, phone= ?, user_password= ? WHERE id = '.$id
+            'UPDATE user SET firstname= :firstname, name_user= :username,
+            email= :email, phone= :phone, user_password= :userpassword WHERE id = :id'
         );
 
-        $req->bindValue(1, $firstname);
-        $req->bindValue(2, $name);
-        $req->bindValue(3, $email);
-        $req->bindValue(4, $phone);
-        $req->bindValue(5, $password);
+        $req->bindValue(':firstname', $firstname);
+        $req->bindValue(':username', $name);
+        $req->bindValue(':email', $email);
+        $req->bindValue(':phone', $phone);
+        $req->bindValue(':userpassword', $password);
+        $req->bindValue(':id', $id);
         $affectedLines = $req->execute();
 
         return $affectedLines;
