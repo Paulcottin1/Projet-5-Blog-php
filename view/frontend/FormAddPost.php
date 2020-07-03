@@ -2,9 +2,10 @@
 <?php require('template.php'); ?>
 
 <?php ob_start(); ?>
+<?php if(isset($_SESSION['message'])) { echo '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
 <div>
     <h1>Ajouter un blog post !</h1>
-    <form action="?action=addPost" method="post" enctype="multipart/form-data">
+    <form action="/?action=addPost" method="post" enctype="multipart/form-data">
         <div>
             <label for="title"> Titre </label>
             <input type="text" name="title">

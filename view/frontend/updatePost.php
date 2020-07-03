@@ -5,7 +5,7 @@
 <div>
     <h1>Modifier un blog post !</h1>
     <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="">
-    <form action="index.php?action=update&img=<?php echo $post->getImg();?>&id=<?php echo $post->getId();?>" method="post" enctype="multipart/form-data">
+    <form action="/?action=update&img=<?php echo $post->getImg();?>&id=<?php echo $post->getId();?>" method="post" enctype="multipart/form-data">
         <div>
             <label for="title"> Titre </label>
             <input type="text" name="title" value="<?php echo $post->getTitle(); ?>">

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title><?= $title ?></title>
-        <link href="public/css/style.css" rel="stylesheet" />
+        <link href="/public/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <header>
@@ -14,9 +14,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="index.php">Accueil <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link active" href="index.php?action=blog">Blog</a>
-                    <a class="nav-item nav-link active" href="index.php?action=contact">Contact</a>
+                    <a class="nav-item nav-link active" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" href="/blog">Blog</a>
+                    <a class="nav-item nav-link active" href="/contact">Contact</a>
                     <?php 
                     if(!empty($_SESSION['user'])) { 
                         $user = unserialize($_SESSION['user']); ?>
@@ -26,15 +26,15 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <?php if($user->getRole() == 'admin' ) { ?>
-                                    <a class="nav-item nav-link active dropdown-item" href="index.php? action=adminPost">Admin</a>
+                                    <a class="nav-item nav-link active dropdown-item" href="/admin">Admin</a>
                                 <?php } ?>
-                                <a class="nav-item nav-link active dropdown-item" href="?action=account"> Mon compte</a>
-                                <a class="nav-item nav-link active dropdown-item" href="?action=logout"> Déconnexion</a>
+                                <a class="nav-item nav-link active dropdown-item" href="mon-compte"> Mon compte</a>
+                                <a class="nav-item nav-link active dropdown-item" href="/deconnexion"> Déconnexion</a>
                             </div>
                         </div>     
                     <?php
                     } else { ?>
-                        <a class="nav-item nav-link active" href="index.php?action=login">Connexion</a>
+                        <a class="nav-item nav-link active" href="connexion">Connexion</a>
                     <?php 
                     }
                     ?>

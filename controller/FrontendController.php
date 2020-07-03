@@ -20,6 +20,7 @@ Class FrontendController
         $manager = new PostManager();
         $numberPages = ceil($manager->countPost() / $limite);
         $posts = $manager->getPosts($limite);
+        $paging = '/blog';
 
         require('view/frontend/listPostsView.php');
         require('view/frontend/paging.php');
@@ -30,6 +31,7 @@ Class FrontendController
         $commentManager = new CommentManager();
         $manager = new PostManager();
         $post = $manager->getPost($_GET['id']);
+        $paging = '/post/'.$post->getId(); 
         $numberPages = ceil($commentManager->countComment() / 10);
         
         require('view/frontend/postView.php');
@@ -59,7 +61,7 @@ Class FrontendController
         if ($affectedLines === false) {
             die('Impossible d\'ajouter le commentaire !');
         } else {
-            header('Location: index.php?action=post&id=' . $_GET['id']);
+            header('Location: post/' . $_GET['id']);
         }
     }
 
@@ -85,7 +87,7 @@ Class FrontendController
                 $page = 1; 
             }
             $_SESSION['message'] = 'Votre commmentaire a été modifié';
-            header('Location: index.php?action=post&id=' . $_GET['id']  . '&page=' . $page .'#comment');
+            header('Location: /post/' . $_GET['id']  . '/page/' . $page .'#comment');
         }
     }
 
@@ -114,7 +116,7 @@ Class FrontendController
             require('view/frontend/paging.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
-            header('Location: index.php');
+            header('Location: /accueil');
         }
     }
 
@@ -122,13 +124,15 @@ Class FrontendController
      {
         $manager = new CommentManager();
         $comments = $manager->getCommentUnPublished();
+        $paging = '/admin/moderation-commentaire' ;
+        $numberPages = ceil($manager->countComment() / 10);
         
         if($this->isAdmin() === true) {
             require('view/frontend/adminComment.php');
             require('view/frontend/paging.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
-            header('Location: index.php');
+            header('Location: /accueil');
         }
     }
 
@@ -138,7 +142,6 @@ Class FrontendController
         $users = $manager->getUsers(10);
 
         require('view/frontend/userModeration.php');
-        require('view/frontend/paging.php');
     }
 
     public function userUpdateRole() 
@@ -157,7 +160,7 @@ Class FrontendController
             die('Impossible de modifier le rôle de l\'utilisateur');
         } else {
             $_SESSION['message'] = 'Le rôle de l\'utilisateur a bien été modifié';
-            header('Location: index.php?action=userModeration');
+            header('Location: /admin/moderation-utilisateur');
         }
     }
 
@@ -168,7 +171,7 @@ Class FrontendController
             die('Impossible de valider le commentaire !');
         } else {
             $_SESSION['message'] = 'Le post a bien été mis à jour';
-            header('Location: index.php?action=adminComment');
+            header('Location: /admin/moderation-commentaire');
         } 
     }
 
@@ -178,7 +181,7 @@ Class FrontendController
             require('view/frontend/formAddPost.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
-            header('Location: index.php');
+            header('Location: /accueil');
         }
     }
 
@@ -191,10 +194,11 @@ Class FrontendController
             if ($affectedLines === false) {
                 die('Impossible d\'ajouter le post !');
             } else {
-                header('Location: index.php?action=blog');
+                header('Location: /blog');
             }
         } else {
-            echo 'Erreur : tous les champs ne sont pas remplis !';
+            $_SESSION['message'] = 'tous les champs ne sont pas remplis !';
+            header('Location: /admin/ajout-post');
         }
     }
 
@@ -203,7 +207,7 @@ Class FrontendController
         $manager = new PostManager();
         $manager->delete($postId);
         $_SESSION['message'] = 'Le post a bien été supprimé';
-        header('Location: index.php?action=adminPost');
+        header('Location: /admin');
     }
 
     public function formUpdate($postId)
@@ -247,7 +251,7 @@ Class FrontendController
                 unlink('./public/image/'.$_GET['img']);
             }
             $_SESSION['message'] = 'Le post a bien été mis à jour';
-            header('Location: index.php?action=adminPost');
+            header('Location: admin');
         } 
     }
 
@@ -271,12 +275,12 @@ Class FrontendController
                 die('Impossible de créer votre compte');
             } else {
                 $_SESSION['message'] = 'Votre compte a bien été créer, vous pouvez vous connecter';
-                header('Location: index.php?action=login');
+                header('Location: /connexion');
             }
     
         } else {
             $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
-            header('Location: index.php?action=userForm');
+            header('Location: /creation-compte');
         }
     }
 
@@ -291,15 +295,15 @@ Class FrontendController
         if(!empty($_POST['email']) && !empty($_POST['password'])) {
             if($manager->connection($_POST['email'], md5($_POST['password'])) === false ) {
                 $_SESSION['message'] = 'l\'email ou le mot de passe n\'est pas correct';
-                header('Location: index.php?action=login');
+                header('Location: connexion');
             } else {
                 $user = $manager->connection($_POST['email'], md5($_POST['password']));
                 $_SESSION['user'] = serialize($user);
-                header('Location: index.php');
+                header('Location: accueil');
             } 
         } else {
             $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
-            header('Location: index.php?action=login');
+            header('Location: connexion');
         }
     }
 
@@ -355,7 +359,7 @@ Class FrontendController
             require('view/frontend/account.php');
         } else {
             $_SESSION['message'] = 'Aucun utilisateur connecté';
-            header('Location: index.php');
+            header('Location: /accueil');
         } 
     }
 
@@ -373,11 +377,11 @@ Class FrontendController
                 );
             } else {
                 $_SESSION['message'] = 'Tous les champs ne sont pas remplis';
-                header('Location: index.php?action=account');
+                header('Location: mon-compte');
             }
         } else {
             $_SESSION['message'] = 'Aucun utilisateur trouvé';
-            header('Location: index.php');
+            header('Location: mon-compte');
         }
         
         if ($affectedLines === false) {
@@ -385,7 +389,7 @@ Class FrontendController
         } else {
             $this->connection();
             $_SESSION['message'] = 'Votre compte a bien été modifié !';
-            header('Location: index.php?action=account');
+            header('Location: mon-compte');
         }
     }
 }

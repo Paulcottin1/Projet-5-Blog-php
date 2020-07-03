@@ -28,7 +28,7 @@
             <td><?= htmlspecialchars($user->getPhone()) ?></td>
             <td><?= htmlspecialchars($user->getEmail()) ?></td>
             <td>           
-                <form action="?action=userUpdateRole&id=<?php echo $user->getId() ?>" method="post">
+                <form action="/?action=userUpdateRole&id=<?php echo $user->getId() ?>" method="post">
                 <select id="role" name="role" onchange="this.form.submit()">
                     <option value="<?= htmlspecialchars($user->getRole()) ?>"><?= htmlspecialchars($user->getRole()) ?></option>
                     <option value="<?php if($user->getRole() == 'admin') { echo 'user'; } else { echo 'admin'; }  ?>"><?php if($user->getRole() == 'admin') { echo 'user'; } else { echo 'admin'; }  ?></option>
