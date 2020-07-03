@@ -1,5 +1,6 @@
 <?php $title = 'Mon compte'; ?>
-<?php require('template.php'); ?>
+<?php require('template.php');
+$paging = '/admin/moderation-page' ?>
 
 <?php ob_start(); ?>
 
@@ -9,7 +10,7 @@
     <p>Mes informations personnelles</p>
 </div>
 <div>
-    <form action="?action=updateUser&id=<?php echo $user->getId() ?>" method="post">
+    <form action="/?action=updateUser&id=<?php echo $user->getId() ?>" method="post">
         <div>
             <label for="firstname"> Prénom :</label>
             <input type="text" name="firstname" id="firstname" value="<?php echo $user->getFirstname()?>">

@@ -1,6 +1,5 @@
 <?php $title = 'Mon blog'; ?>
-<?php require('template.php'); 
-$paging = 'index.php?action=blog'?>
+<?php require('template.php'); ?>
 
 <?php ob_start(); ?>
 <div class="row center title-blog-page">
@@ -16,12 +15,12 @@ $paging = 'index.php?action=blog'?>
             <h3>
                 <?= htmlspecialchars($post->getTitle()) ?>
             </h3>
-            <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
+            <img src="/public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
             <p>
                 <?= nl2br(htmlspecialchars($post->getChapo())) ?>
             </p>
             <div class="view-comments">
-                <a href="index.php?action=post&amp;id=<?= $post->getId() ?>">Voir les commentaires</a>
+                <a href="/post/<?= $post->getId() ?>">Voir les commentaires</a>
             </div>
         </div>
     <?php

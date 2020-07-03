@@ -23,18 +23,18 @@
                     <?= nl2br(htmlspecialchars($post->getChapo())) ?>
                 </p>
                 <div class="view-comments">
-                    <a href="index.php?action=post&amp;id=<?= $post->getId() ?>">Voir les commentaires</a>
+                    <a href="post/<?= $post->getId() ?>">Voir les commentaires</a>
                 </div>
             </div>
         <?php
         }
         ?>
     </div>
-    <a href="index.php?action=blog" class="btn btn-secondary button"> Voir plus de mes réalisations </a>
+    <a href="/blog" class="btn btn-secondary button"> Voir plus de mes réalisations </a>
 </div>
 <div class="container-fluid center cv background">
     <h3 class="center"> Consultez mon curriculum vitae </h3>
-    <a href="/Projet5/P5_Blog/public/pdf/cv.pdf" class="btn btn-secondary"> CV </a>
+    <a href="/public/pdf/cv.pdf" class="btn btn-secondary"> CV </a>
 </div>
 <div class="center social-media">
     <h3 class=""> Mes reseaux sociaux professionnel</h3>

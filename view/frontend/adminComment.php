@@ -1,5 +1,5 @@
-<?php $title = 'Ajouter un blog post'; ?>
-<?php require('template.php'); ?>
+<?php $title = 'Modération des commentaires'; ?>
+<?php require('template.php');?>
 
 <?php ob_start(); ?>
 
@@ -25,7 +25,7 @@
             <td><?= htmlspecialchars($comment->getPostId()) ?></td>
             <td><?= htmlspecialchars($comment->getAuthor()) ?></td>
             <td><?= htmlspecialchars($comment->getComment()) ?></td>
-            <td><a href="?action=publishComment&id=<?php echo $comment->getId() ?>"> Valider </a></td>
+            <td><a href="/?action=publishComment&id=<?php echo $comment->getId() ?>"> Valider </a></td>
         </tr>
         <?php
         }

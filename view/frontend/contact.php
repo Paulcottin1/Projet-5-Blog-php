@@ -11,7 +11,7 @@
     </p>
     <div class="row container-fluid">
         <div class="col-md-12 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="index.php?action=contact" method="POST">
+            <form id="contact-form" name="contact-form" action="contact" method="POST">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">

@@ -1,16 +1,15 @@
 <?php $title = htmlspecialchars($post->getTitle()); ?>
-<?php require('template.php'); 
-$paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
+<?php require('template.php'); ?>
 
 <?php ob_start(); ?>
 <div class="row center title-blog-page">
     <h1 class="col">Mon blog !</h1>
 </div>
 <div class="container">
-    <p class="btn btn-secondary"><a href="index.php">Retour à la liste des billets</a></p>
+    <p class="btn btn-secondary"><a href="/blog">Retour à la liste des billets</a></p>
 </div>
 <div class="img-post-view row center">
-    <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid col">
+    <img src="/public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid col">
 </div>
 <div class="news container">
     <h3>
@@ -27,7 +26,7 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
     <?php 
     if(!empty($_SESSION['user'])) { 
     $user = unserialize($_SESSION['user']);                ?>
-    <form action="index.php?action=addComment&amp;id=<?= $post->getId() ?>" method="post">
+    <form action="/?action=addComment&amp;id=<?= $post->getId() ?>" method="post">
         <div>
             <label for="author">Auteur</label><br />
             <p><?php echo $user->getLastname() . ' ' . $user->getFirstname(); ?></p>
@@ -42,7 +41,7 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
     </form>
     <?php
     } else { ?>
-        <a class="btn btn-dark" href="index.php?action=login">Connectez vous pour écrire un commentaire</a>
+        <a class="btn btn-dark" href="/connexion">Connectez vous pour écrire un commentaire</a>
     <?php 
     }
     ?>
@@ -60,7 +59,7 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
             <?php
             if(isset($_GET['comment']) == 'update' && $comment->getUserId() === $user->getId()) {
             ?>
-                <form action="?action=submitUpdate&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) { echo $_GET['page']; } else { echo 1; } ?>&comment_id=<?php echo $comment->getId(); ?>" method="post">
+                <form action="/?action=submitUpdate&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) { echo $_GET['page']; } else { echo 1; } ?>&comment_id=<?php echo $comment->getId(); ?>" method="post">
                     <textarea name="comment" id="comment" cols="30" rows="10"><?= nl2br(htmlspecialchars($comment->getComment())) ?></textarea>
                     <input type="submit" class="btn btn-dark">
                 </form>
@@ -74,8 +73,8 @@ $paging = 'index.php?action=post&amp;id='.$post->getId(); ?>
             <?php
             if($comment->getUserId() === $user->getId() && !isset($_GET['comment'])) {
             ?>
-                <a href="?action=post&id=<?php echo $post->getId(); ?>&page=<?php if(!empty($_GET['page'])) {
-                echo $_GET['page']; } else { echo 1; } ?>&comment=update#comment" class="btn btn-dark"> Modifier</a>
+                <a href="/post/<?php echo $post->getId(); ?>/page/<?php if(!empty($_GET['page'])) {
+                echo $_GET['page']; } else { echo 1; } ?>/modification-commentaire#comment" class="btn btn-dark"> Modifier</a>
             <?php
             }
             ?>
