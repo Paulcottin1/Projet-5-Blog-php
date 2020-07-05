@@ -8,7 +8,7 @@ if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'post') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
-            $controller->post();
+            $controller->post($_GET['id']);
         }
         else {
             echo 'Erreur : aucun identifiant de billet envoyé';
@@ -16,14 +16,14 @@ if (isset($_GET['action'])) {
     }
     elseif ($_GET['action'] == 'addComment') {
         $controller = new FrontendController();
-        $controller->addComment();
+        $controller->addComment($_GET['id'], $_POST['comment']);
     }
     elseif($_GET['action'] == 'formAddPost') {
         $controller->formAddPost();
     }
     elseif($_GET['action'] == 'addPost') {
         $controller = new FrontendController();
-        $controller->addPost();
+        $controller->addPost($_POST['title'], $_POST['chapo'], $_POST['content'], $_FILES);
     }
     elseif($_GET['action'] == 'blog') {
         $controller = new FrontendController();
@@ -31,26 +31,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'contact') {
         $controller = new FrontendController();
-        $controller->contact();
-
-        if(isset($_POST['email'])) {
-            if(!empty($_POST['name']) && !empty($_POST['subject']) && !empty($_POST['message'])) {
-            $toEmail = 'cottin.paul45@gmail.com';
-            $EmailSubject = 'Blog contact form'; 
-            $mailheader = "From: ".$_POST["email"]."\r\n"; 
-            $mailheader .= "Reply-To: ".$_POST["email"]."\r\n"; 
-            $mailheader .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
-            $MESSAGE_BODY = "Name: ".$_POST["name"].""; 
-            $MESSAGE_BODY .= "Email: ".$_POST["email"]."";
-            $MESSAGE_BODY .= "Sujet: ".$_POST["subject"]."";  
-            $MESSAGE_BODY .= "Message: ".nl2br($_POST["message"]).""; 
-            mail($toEmail, $EmailSubject, $MESSAGE_BODY, $mailheader) or die ("Failure"); 
-
-            echo 'Votre message a bien été envoyé';
-            } else {
-                echo 'Veuillez remplir tous les champs';
-            }
-        }
+        $controller->contact($_POST['email'], $_POST['subject'], $_POST['message'], $_POST['name']);
     }
     elseif($_GET['action'] == 'adminPost') {
         $controller = new FrontendController();
@@ -62,7 +43,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'publishComment') {
         $controller = new FrontendController();
-        $controller->publishComment();
+        $controller->publishComment($_GET['id']);
     }
     elseif($_GET['action'] == 'delete' && isset($_GET['id'])) {
             $controller->delete($_GET['id']);
@@ -73,7 +54,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'update') {
         $controller = new FrontendController();
-        $controller->update();
+        $controller->update($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content'], $_FILES, $_GET['img']);
     }
     elseif($_GET['action'] == 'userForm') {
         $controller = new FrontendController();
@@ -81,7 +62,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'addUser') {
         $controller = new FrontendController();
-        $controller->addUser();
+        $controller->addUser($_POST['name'], $_POST['firstname'], $_POST['email'], $_POST['phone'], $_POST['password']);
     }
     elseif($_GET['action'] == 'login') {
         $controller = new FrontendController();
@@ -89,7 +70,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'connection') {
         $controller = new FrontendController();
-        $controller->connection();
+        $controller->connection($_POST['email'], $_POST['password']);
     }
     elseif($_GET['action'] == 'logout') {
         $controller = new FrontendController();
@@ -97,7 +78,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'submitUpdate') {
             $controller = new FrontendController();
-            $controller->updateComment();
+            $controller->updateComment($_POST['comment'], $_GET['comment_id'], $_GET['id'], $_GET['page']);
     }
     elseif($_GET['action'] == 'userModeration') {
         $controller = new FrontendController();
@@ -105,7 +86,7 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'userUpdateRole') {
         $controller = new FrontendController();
-        $controller->userUpdateRole();
+        $controller->userUpdateRole($_GET['id'], $_POST['role']);
     }
     elseif($_GET['action'] == 'account') {
         $controller = new FrontendController();
@@ -113,7 +94,8 @@ if (isset($_GET['action'])) {
     }
     elseif($_GET['action'] == 'updateUser') {
         $controller = new FrontendController();
-        $controller->updateUser();
+        $controller->updateUser($_GET['id'], $_POST['name'], $_POST['firstname'], 
+         $_POST['email'], $_POST['phone'], $_POST['password']);
     }
 } 
  else {
