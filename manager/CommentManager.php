@@ -3,7 +3,11 @@ namespace App\manager;
 use App\entity\Comment;
 
 Class CommentManager extends AbstractManager
-{   
+{       
+    /**
+     * Return comments unpublished
+     * @return $comments
+     */
     public function getCommentUnPublished()
      {
         $db = $this->dbConnect();
@@ -21,7 +25,13 @@ Class CommentManager extends AbstractManager
         }
         
         return $comments;
-    }
+    }    
+
+    /**
+     * get comments for a post
+     * @param  int $postId
+     * @return $comments
+     */
     public function getComments($postId)
     {
         if(!empty($_GET['page'])) {
@@ -47,7 +57,12 @@ Class CommentManager extends AbstractManager
 
         return $comments;
     }
-
+    
+    /**
+     * get comment with id
+     * @param  int $id
+     * @return $comment
+     */
     public function getComment($id)
     {
         $db = $this->dbConnect();
@@ -66,7 +81,15 @@ Class CommentManager extends AbstractManager
 
         return $comment;
     }
-
+    
+    /**
+     * post a comment
+     * @param  int $postId
+     * @param  int $userId
+     * @param  string $author
+     * @param  string $comment
+     * @return $affectedLines
+     */
     public function postComment($postId, $userId, $author, $comment)
     {
         $db = $this->dbConnect();
@@ -82,7 +105,13 @@ Class CommentManager extends AbstractManager
 
         return $affectedLines;
     }
-
+    
+    /**
+     * update a comment
+     * @param  int $id
+     * @param  string $comment
+     * @return $affectedLines
+     */
     public function updateComment($id, $comment) 
     {
         $db = $this->dbConnect();
@@ -93,16 +122,25 @@ Class CommentManager extends AbstractManager
 
         return $affectedLines;
     }
-
+    
+    /**
+     * count comments
+     * @return $totalComment
+     */
     public function countComment()
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT count(id) FROM comments');
         $totalPost = $req->fetchColumn();
 
-        return $totalPost;
+        return $totalComment;
     }
-
+    
+    /**
+     * posting comment after validation
+     * @param  int $commentId
+     * @return $affectedLines
+     */
     public function publishComment($commentId) 
     {
         $db = $this->dbConnect();

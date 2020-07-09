@@ -14,7 +14,12 @@ Class FrontendController
 
         require('view/frontend/home.php');
     }
-
+    
+    /**
+     * Render blog page
+     * @param  int $limite
+     * @return
+     */
     public function listPosts($limite)
     {   
         $manager = new PostManager();
@@ -25,7 +30,12 @@ Class FrontendController
         require('view/frontend/listPostsView.php');
         require('view/frontend/paging.php');
     }
-
+    
+    /**
+     * Render single post page
+     * @param  int $id
+     * @return
+     */
     public function post($id)
     {
         $commentManager = new CommentManager();
@@ -37,7 +47,13 @@ Class FrontendController
         require('view/frontend/postView.php');
         require('view/frontend/paging.php');
     }
-
+    
+    /**
+     * add comment in post
+     * @param  int $id
+     * @param  string $comment
+     * @return
+     */
     public function addComment($id, $comment)
     {   
         $manager = new CommentManager();
@@ -64,7 +80,15 @@ Class FrontendController
             header('Location: post/' . $id);
         }
     }
-
+    
+    /**
+     * update comment
+     * @param  string $comment
+     * @param  int $commentId
+     * @param  int $id
+     * @param  int $pageNb
+     * @return
+     */
     public function updateComment($comment, $commentId, $id, $pageNb) 
     {
         $manager = new CommentManager();
@@ -104,7 +128,12 @@ Class FrontendController
             return false;
         }
     }
-
+    
+    /**
+     * Render admin page
+     * @param  int $limite
+     * @return
+     */
     public function adminPost($limite)
     {
         $manager = new PostManager();
@@ -143,7 +172,13 @@ Class FrontendController
 
         require('view/frontend/userModeration.php');
     }
-
+    
+    /**
+     * Update user role - admin or user
+     * @param  int $id
+     * @param  string $role
+     * @return
+     */
     public function userUpdateRole($id, $role) 
     {
         $manager = new UserManager();
@@ -163,7 +198,12 @@ Class FrontendController
             header('Location: /admin/moderation-utilisateur');
         }
     }
-
+    
+    /**
+     * posting comment after validation
+     * @param  int $id
+     * @return
+     */
     public function publishComment($id) {
         $manager = new CommentManager();
         $affectedLines = $manager->publishComment($id);
@@ -184,7 +224,15 @@ Class FrontendController
             header('Location: /accueil');
         }
     }
-
+    
+    /**
+     * Create new post
+     * @param  string $title
+     * @param  string $chapo
+     * @param  string $content
+     * @param  array $file
+     * @return
+     */
     public function addPost($title, $chapo ,$content, $file)
     {
         if(!empty($title) && !empty($content) && !empty($file)) {
@@ -201,7 +249,12 @@ Class FrontendController
             header('Location: /admin/ajout-post');
         }
     }
-
+    
+    /**
+     * delete post
+     * @param  int $postId
+     * @return
+     */
     public function delete($postId)
     {
         $manager = new PostManager();
@@ -209,7 +262,12 @@ Class FrontendController
         $_SESSION['message'] = 'Le post a bien été supprimé';
         header('Location: /admin');
     }
-
+    
+    /**
+     * Render update form page
+     * @param  int $postId
+     * @return
+     */
     public function formUpdate($postId)
     {
         $manager = new PostManager();
@@ -222,7 +280,17 @@ Class FrontendController
             header('Location: index.php');
         }
     }
-
+    
+    /**
+     * update post
+     * @param  int $id
+     * @param  string $title
+     * @param  string $chapo
+     * @param  string $content
+     * @param  array $file
+     * @param  string $img
+     * @return
+     */
     public function update($id ,$title, $chapo ,$content, $file, $img)
     {
         $manager = new PostManager();
@@ -260,7 +328,16 @@ Class FrontendController
 
         require('view/frontend/userForm.php');
     }
-
+    
+    /**
+     * add new user
+     * @param  string $name
+     * @param  string $firstname
+     * @param  string $email
+     * @param  string $phone
+     * @param  string $password
+     * @return
+     */
     public function addUser($name, $firstname, $email, $phone, $password)
     {
         if(
@@ -287,7 +364,13 @@ Class FrontendController
      {
         require('view/frontend/login.php');
     }
-
+    
+    /**
+     * connection
+     * @param  string $email
+     * @param  string $password
+     * @return
+     */
     public function connection($email, $password)
      {
         $manager = new UserManager();
@@ -311,7 +394,15 @@ Class FrontendController
         unset($_SESSION['user']);
         $this->home();
     }
-
+    
+    /**
+     * Render contact page and send email
+     * @param  string $email
+     * @param  string $subject
+     * @param  string $message
+     * @param  string $name
+     * @return
+     */
     public function contact($email, $subject, $message, $name)
     {
         if(isset($email)) {
@@ -334,7 +425,12 @@ Class FrontendController
         }
         require('view/frontend/contact.php');
     }
-
+    
+    /**
+     * Image verification for post
+     * @param  array $file
+     * @return $imageName
+     */
     public function verifImg($file)
      {
         define('TARGET', './public/image/');    // Repertoire cible
@@ -379,7 +475,17 @@ Class FrontendController
             header('Location: /accueil');
         } 
     }
-
+    
+    /**
+     * update user informations
+     * @param  int $id
+     * @param  string $name
+     * @param  string $firstname
+     * @param  string $email
+     * @param  string $phone
+     * @param  string $password
+     * @return
+     */
     public function updateUser($id, $name, $firstname, $email, $phone, $password)
     {
         $manager = new UserManager();

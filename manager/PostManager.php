@@ -4,7 +4,12 @@ use App\manager\CommentManager;
 use App\entity\Post;
 
 Class PostManager extends AbstractManager
-{
+{  
+    /**
+     * get posts with limite
+     * @param  int $limite
+     * @return array $posts
+     */
     public function getPosts($limite)
     {
         if(!empty($_GET['page'])) {
@@ -29,7 +34,12 @@ Class PostManager extends AbstractManager
         
         return $posts;
     }
-
+    
+    /**
+     * get post with post id
+     * @param  int $postId
+     * @return $post
+     */
     public function getPost($postId)
     {
         $db = $this->dbConnect();
@@ -56,7 +66,15 @@ Class PostManager extends AbstractManager
         
         return $post;
     }
-
+    
+    /**
+     * add new post
+     * @param  string $title
+     * @param  string $content
+     * @param  string $img
+     * @param  string $chapo
+     * @return $affectedLines
+     */
     public function addPost($title, $content, $img, $chapo)
     {
         $db = $this->dbConnect();
@@ -72,7 +90,16 @@ Class PostManager extends AbstractManager
 
         return $affectedLines;
     }
-
+    
+    /**
+     * update post
+     * @param  int $id
+     * @param  string $title
+     * @param  string $chapo
+     * @param  string $content
+     * @param  string $img
+     * @return $affectedLines
+     */
     public function update($id, $title, $chapo,  $content, $img)
     {
         $db = $this->dbConnect();
@@ -86,7 +113,12 @@ Class PostManager extends AbstractManager
 
         return $affectedLines;
     }
-
+    
+    /**
+     * delete post 
+     * @param  int $postId
+     * @return $affectedLines
+     */
     public function delete($postId)
      {
         $db = $this->dbConnect();
@@ -96,7 +128,11 @@ Class PostManager extends AbstractManager
 
         return $affectedLines;
     }
-
+    
+    /**
+     * count all post
+     * @return $totalPost
+     */
     public function countPost()
      {
         $db = $this->dbConnect();
