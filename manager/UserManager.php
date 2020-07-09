@@ -2,8 +2,13 @@
 namespace App\manager;
 use App\entity\User;
 
-Class UserManager extends AbstractManager {
-
+Class UserManager extends AbstractManager
+{
+    /**
+     * get users with limite
+     * @param  int $limite
+     * @return $users
+     */
     public function getUsers($limite)
     {
         if(!empty($_GET['page'])) {
@@ -24,7 +29,12 @@ Class UserManager extends AbstractManager {
         
         return $users;
     }
-
+    
+    /**
+     * get user with id
+     * @param  int $userId
+     * @return $user
+     */
     public function getUser($userId)
     {
         $db = $this->dbConnect();
@@ -45,7 +55,13 @@ Class UserManager extends AbstractManager {
         
         return $user;
     }
-
+    
+    /**
+     * update role - admin or user
+     * @param  int $id
+     * @param  string $role
+     * @return $affectedLines
+     */
     public function updateRole($id, $role)
     {
         $db = $this->dbConnect();
@@ -56,7 +72,16 @@ Class UserManager extends AbstractManager {
 
         return $affectedLines;
     }
-
+    
+    /**
+     * add new user
+     * @param  string $firstname
+     * @param  string $name
+     * @param  string $email
+     * @param  string $password
+     * @param  string $telephone
+     * @return $affectedLines
+     */
     public function addUser($firstname, $name, $email, $password, $telephone)
     {
         $db = $this->dbConnect();
@@ -73,8 +98,13 @@ Class UserManager extends AbstractManager {
 
         return $affectedLines;
     }
-
-
+        
+    /**
+     * connection
+     * @param  string $email
+     * @param  string $password
+     * @return $user
+     */
     public function connection($email, $password)
     {
         $db = $this->dbConnect();
@@ -101,7 +131,17 @@ Class UserManager extends AbstractManager {
             return false;
         }
     }
-
+    
+    /**
+     * update user
+     * @param  int $id
+     * @param  string $name
+     * @param  string $firstname
+     * @param  string $phone
+     * @param  string $email
+     * @param  string $password
+     * @return $affectedLines
+     */
     public function update($id, $name, $firstname, $phone, $email, $password)
      {
         $db = $this->dbConnect();

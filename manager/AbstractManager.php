@@ -2,7 +2,11 @@
 namespace App\manager;
 
 Abstract Class AbstractManager
-{
+{    
+    /**
+     * connection database
+     * @return $db
+     */
     public function dbConnect()
     {
         try
