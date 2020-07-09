@@ -11,9 +11,11 @@ RewriteRule ^contact$ ?action=contact
 RewriteRule ^mon-compte$ ?action=account
 RewriteRule ^deconnexion$ ?action=logout
 RewriteRule ^connexion$ ?action=login 
-RewriteRule ^admin$ ?action=adminPost
+RewriteRule ^admin$ ?action=admin
 RewriteRule ^admin/moderation-commentaire$ ?action=adminComment
-RewriteRule ^admin/moderation-commentaire/page/([0-9]+)$ ?action=adminComment&page=$2
+RewriteRule ^admin/moderation-commentaire/page/([0-9]+)$ ?action=adminComment&page=$1
+RewriteRule ^admin/modification-post$ ?action=adminPost
+RewriteRule ^admin/modification-post/page/([0-9]+)$ ?action=adminPost&page=$1
 RewriteRule ^admin/ajout-post$ ?action=formAddPost
 RewriteRule ^admin/modification-post/([0-9]+)$ ?action=formUpdatePost&id=$1
 RewriteRule ^admin/moderation-utilisateur$ ?action=userModeration

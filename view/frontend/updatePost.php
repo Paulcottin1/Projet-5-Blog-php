@@ -2,7 +2,11 @@
 <?php require('template.php'); ?>
 
 <?php ob_start(); ?>
+
 <div>
+    <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
+</div>
+<div class="form-add-post container">
     <h1>Modifier un blog post !</h1>
     <img src="./public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="">
     <form action="/?action=update&img=<?php echo $post->getImg();?>&id=<?php echo $post->getId();?>" method="post" enctype="multipart/form-data">
@@ -22,6 +26,6 @@
             <label for="file"> Changer d'image de mise en avant</label>
             <input type="file" name="file">
         </div>
-        <input type="submit">
+        <input type="submit" class="btn btn-dark">
     </form>
 </div>

@@ -1,9 +1,7 @@
 h1
 {
     text-align:center;
-    color: white;
-    background-color: #343a40;
-    font-size: 45px !important;
+    color: #343a40;
     font-weight: bold;
 }
 
@@ -128,6 +126,9 @@ a {
     position: absolute;
     left:40%;
 }
+.paging a {
+    background-color : #343a40;
+}
 
 /* home */
 
@@ -197,14 +198,50 @@ a {
     left: 50%;
 }
 
-/* adminPost */
+/* admin */
 
 .admin-post a {
     color: black !important;
 }
 
-/* adminComment */
-
 .modComment a {
     color: black !important;
+}
+
+.admin-table  table{
+    border-radius: 45px;    
+}
+
+.admin-table td {
+    height: 300px !important;
+    border: 8px solid white !important;  
+}
+
+.admin-table tr {
+    border-radius: 45px;   
+}
+
+.admin-table a {
+    position: relative;
+    top: 50%;
+    transform: translate(-0%, -50%);
+    left: 0%;
+} 
+
+.admin-table h2 {
+    font-size: 25px;
+    text-transform: uppercase;
+} 
+
+.form-add-post input {
+    width: 100% !important;
+    margin-top: 5px;
+}
+
+.form-add-post textarea {
+    width: 100% !important;
+}
+
+.back-admin {
+    margin-top: 10px;
 }

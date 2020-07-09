@@ -129,8 +129,18 @@ Class FrontendController
         }
     }
     
+    public function admin()
+    {   
+        if($this->isAdmin() === true) {
+            require('view/frontend/admin.php');
+        } else {
+            $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
+            header('Location: /accueil');
+        }
+    }
+
     /**
-     * Render admin page
+     * Render admin post page
      * @param  int $limite
      * @return
      */
@@ -139,6 +149,7 @@ Class FrontendController
         $manager = new PostManager();
         $numberPages = ceil($manager->countPost() / $limite);
         $posts = $manager->getPosts($limite);
+        $paging = '/admin/modification-post' ;
         
         if($this->isAdmin() === true) {
             require('view/frontend/adminPost.php');
