@@ -28,13 +28,13 @@
                                 <?php if($user->getRole() == 'admin' ) { ?>
                                     <a class="nav-item nav-link active dropdown-item" href="/admin">Admin</a>
                                 <?php } ?>
-                                <a class="nav-item nav-link active dropdown-item" href="mon-compte"> Mon compte</a>
+                                <a class="nav-item nav-link active dropdown-item" href="/mon-compte"> Mon compte</a>
                                 <a class="nav-item nav-link active dropdown-item" href="/deconnexion"> Déconnexion</a>
                             </div>
                         </div>     
                     <?php
                     } else { ?>
-                        <a class="nav-item nav-link active" href="connexion">Connexion</a>
+                        <a class="nav-item nav-link active" href="/connexion">Connexion</a>
                     <?php 
                     }
                     ?>

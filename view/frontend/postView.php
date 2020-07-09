@@ -71,11 +71,13 @@
             }
             ?>
             <?php
-            if($comment->getUserId() === $user->getId() && !isset($_GET['comment'])) {
-            ?>
-                <a href="/post/<?php echo $post->getId(); ?>/page/<?php if(!empty($_GET['page'])) {
-                echo $_GET['page']; } else { echo 1; } ?>/modification-commentaire#comment" class="btn btn-dark"> Modifier</a>
-            <?php
+            if(!empty($user)) {
+                if($comment->getUserId() === $user->getId() && !isset($_GET['comment'])) {
+                ?>
+                    <a href="/post/<?php echo $post->getId(); ?>/page/<?php if(!empty($_GET['page'])) {
+                    echo $_GET['page']; } else { echo 1; } ?>/modification-commentaire#comment" class="btn btn-dark"> Modifier</a>
+                <?php
+                }
             }
             ?>
         </div>
