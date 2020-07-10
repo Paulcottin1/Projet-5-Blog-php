@@ -33,6 +33,10 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->contact($_POST['email'], $_POST['subject'], $_POST['message'], $_POST['name']);
     }
+    elseif($_GET['action'] == 'admin') {
+        $controller = new FrontendController();
+        $controller->admin();
+    }
     elseif($_GET['action'] == 'adminPost') {
         $controller = new FrontendController();
         $controller->adminPost(10);
