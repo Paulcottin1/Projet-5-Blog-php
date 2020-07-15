@@ -29,9 +29,13 @@ if (isset($_GET['action'])) {
         $controller = new FrontendController();
         $controller->listPosts(8);
     }
+    elseif($_GET['action'] == 'sendMail') {
+        $controller = new FrontendController();
+        $controller->sendMail($_POST['email'], $_POST['subject'], $_POST['message'], $_POST['name']);
+    }
     elseif($_GET['action'] == 'contact') {
         $controller = new FrontendController();
-        $controller->contact($_POST['email'], $_POST['subject'], $_POST['message'], $_POST['name']);
+        $controller->contact();
     }
     elseif($_GET['action'] == 'admin') {
         $controller = new FrontendController();

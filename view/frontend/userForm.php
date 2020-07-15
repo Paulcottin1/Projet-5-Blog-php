@@ -4,7 +4,7 @@
 <?php ob_start(); ?>
 
 
-<div>
+<div class="container">
     <h2> Création de compte</h2>
     <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <form action="/?action=addUser" method="post">

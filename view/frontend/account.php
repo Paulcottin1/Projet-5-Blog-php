@@ -5,11 +5,11 @@ $paging = '/admin/moderation-page' ?>
 <?php ob_start(); ?>
 
 <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
-<div>
+<div class=" center">
     <h1>MON COMPTE</h1>
     <p>Mes informations personnelles</p>
 </div>
-<div>
+<div class="container form-add-post">
     <form action="/?action=updateUser&id=<?php echo $user->getId() ?>" method="post">
         <div>
             <label for="firstname"> Prénom :</label>
@@ -31,6 +31,6 @@ $paging = '/admin/moderation-page' ?>
             <label for="password"> Mot de passe :</label>
             <input type="password" name="password" id="password" value="<?php echo $user->getPassword()?>">
         </div>
-        <input type="submit" value="Modifier">
+        <input type="submit" class="margin-top btn btn-dark" value="Modifier">
     </form>
 </div>
