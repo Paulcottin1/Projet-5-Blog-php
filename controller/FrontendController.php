@@ -330,7 +330,7 @@ Class FrontendController
                 unlink('./public/image/'.$img);
             }
             $_SESSION['message'] = 'Le post a bien été mis à jour';
-            header('Location: admin');
+            header('Location: /admin/modification-post');
         } 
     }
 
@@ -407,14 +407,14 @@ Class FrontendController
     }
     
     /**
-     * Render contact page and send email
+     * send email and render contact page 
      * @param  string $email
      * @param  string $subject
      * @param  string $message
      * @param  string $name
      * @return
      */
-    public function contact($email, $subject, $message, $name)
+    public function sendMail($email, $subject, $message, $name)
     {
         if(isset($email)) {
             if(!empty($name) && !empty($subject) && !empty($message)) {
@@ -429,11 +429,15 @@ Class FrontendController
             $MESSAGE_BODY .= "Message: ".nl2br($message).""; 
             mail($toEmail, $EmailSubject, $MESSAGE_BODY, $mailheader) or die ("Failure"); 
 
-            echo 'Votre message a bien été envoyé';
+            $_SESSION['message'] = 'Votre message a bien été envoyé';
             } else {
-                echo 'Veuillez remplir tous les champs';
+                $_SESSION['message'] = 'Veuillez remplir tous les champs';
             }
         }
+        header('Location: /contact');
+    }
+
+    public function contact() {
         require('view/frontend/contact.php');
     }
     

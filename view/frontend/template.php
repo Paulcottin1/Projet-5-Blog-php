@@ -20,7 +20,7 @@
                     <?php 
                     if(!empty($_SESSION['user'])) { 
                         $user = unserialize($_SESSION['user']); ?>
-                        <div class="dropdown">
+                        <div class="dropdown menu">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Bonjour <?php echo $user->getFirstname()." ".$user->getLastname(); ?>
                             </button>

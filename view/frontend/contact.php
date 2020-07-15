@@ -3,15 +3,16 @@
 
 <?php ob_start(); ?>
 <div>
-<section class="mb-4">
+<section class="mb-4 container">
     <h2 class="h1-responsive font-weight-bold text-center my-4">Contactez moi</h2>
     <p class="text-center w-responsive mx-auto mb-5">
         Vous avez une question ? Vous souhaitez que l'on collabore ensemble ?
         N'hésitez pas, je reviendrais vers vous dans les heures qui suivent.
     </p>
+    <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <div class="row container-fluid">
         <div class="col-md-12 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="contact" method="POST">
+            <form id="contact-form" name="contact-form" action="/?action=sendMail" method="POST">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <div class="text-center text-md-left">
-                    <a class="btn btn-dark" onclick="document.getElementById('contact-form').submit();">Send</a>
+                    <a class="btn btn-dark" onclick="document.getElementById('contact-form').submit();">Envoyer</a>
                 </div>
             </form>
         </div>
