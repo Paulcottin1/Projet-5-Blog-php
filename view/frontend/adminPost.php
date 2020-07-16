@@ -1,9 +1,3 @@
-<?php $title = 'Gestion des blog posts'; ?>
-<?php require('template.php'); ?>
-
-
-<?php ob_start(); ?>
-
 <div>
     <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
 </div>

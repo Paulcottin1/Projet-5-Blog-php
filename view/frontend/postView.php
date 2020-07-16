@@ -1,7 +1,3 @@
-<?php $title = htmlspecialchars($post->getTitle()); ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
 <div class="container back">
     <p class="btn btn-dark"><a href="/blog">Retour à la liste des réalisations</a></p>
 </div>

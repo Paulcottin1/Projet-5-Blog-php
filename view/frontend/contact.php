@@ -1,7 +1,3 @@
-<?php $title = 'Contactez moi'; ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
 <div>
 <section class="mb-4 container">
     <h2 class="h1-responsive font-weight-bold text-center my-4">Contactez moi</h2>
@@ -53,3 +49,5 @@
     </div>
 </section>
 <!--Section: Contact v.2-->
+<div class="full-height">
+</div>

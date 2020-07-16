@@ -1,9 +1,3 @@
-<?php $title = 'Mon compte'; ?>
-<?php require('template.php');
-$paging = '/admin/moderation-page' ?>
-
-<?php ob_start(); ?>
-
 <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
 <div class=" center">
     <h1>MON COMPTE</h1>
@@ -33,4 +27,6 @@ $paging = '/admin/moderation-page' ?>
         </div>
         <input type="submit" class="margin-top btn btn-dark" value="Modifier">
     </form>
+</div>
+<div class="full-height">
 </div>

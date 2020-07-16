@@ -1,8 +1,3 @@
-<?php $title = 'Administration'; ?>
-<?php require('template.php'); ?>
-
-
-<?php ob_start(); ?>
 <div class="row center">
     <h1 class="col-12"> Administration</h1>
     <p class="col-12">Choisissez ce que vous souhaitez administrer</p>
@@ -20,4 +15,6 @@
     <div class="col-sm-6 col-md-6 margin-bottom admin-div">
         <a href="/admin/modification-post" class="btn btn-dark col-12"><h2 class="margin-top"> Gestion des blog posts </h2><img src="/public/image/post.png" alt="Image article" class="img-fluid admin-img margin-top"></a>
     </div>
+</div>
+<div class="full-height">
 </div>

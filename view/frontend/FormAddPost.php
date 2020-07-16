@@ -1,8 +1,3 @@
-<?php $title = 'Ajouter un blog post'; ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
-
 <?php if(isset($_SESSION['message'])) { echo '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
 <div>
     <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
