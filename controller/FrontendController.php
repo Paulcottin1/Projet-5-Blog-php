@@ -42,8 +42,6 @@ Class FrontendController
         $commentManager = new CommentManager();
         $manager = new PostManager();
         $post = $manager->getPost($id);
-        $paging = '/post/'.$post->getId(); 
-        $numberPages = ceil($commentManager->countComment() / 10);
         $title = htmlspecialchars($post->getTitle());
         $template = 'postView';
         require('view/frontend/template.php');
