@@ -130,7 +130,7 @@ Class CommentManager extends AbstractManager
     public function countComment()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT count(id) FROM comments');
+        $req = $db->query('SELECT count(id) FROM comments WHERE publish = 0');
         $totalComment = $req->fetchColumn();
 
         return $totalComment;
