@@ -1,8 +1,3 @@
-<?php $title = 'Modifier un blog post'; ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
-
 <div>
     <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
 </div>

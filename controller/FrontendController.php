@@ -11,8 +11,9 @@ Class FrontendController
     {
         $manager = new PostManager();
         $posts = $manager->getPosts(4);
-
-        require('view/frontend/home.php');
+        $template = 'home';
+        $title = 'Accueil';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -26,9 +27,9 @@ Class FrontendController
         $numberPages = ceil($manager->countPost() / $limite);
         $posts = $manager->getPosts($limite);
         $paging = '/blog';
-
-        require('view/frontend/listPostsView.php');
-        require('view/frontend/paging.php');
+        $title = 'Mon blog';
+        $template = 'listPostsView';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -43,9 +44,9 @@ Class FrontendController
         $post = $manager->getPost($id);
         $paging = '/post/'.$post->getId(); 
         $numberPages = ceil($commentManager->countComment() / 10);
-        
-        require('view/frontend/postView.php');
-        require('view/frontend/paging.php');
+        $title = htmlspecialchars($post->getTitle());
+        $template = 'postView';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -132,7 +133,9 @@ Class FrontendController
     public function admin()
     {   
         if($this->isAdmin() === true) {
-            require('view/frontend/admin.php');
+            $template = 'admin';
+            $title = 'Administration';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
             header('Location: /accueil');
@@ -152,8 +155,9 @@ Class FrontendController
         $paging = '/admin/modification-post' ;
         
         if($this->isAdmin() === true) {
-            require('view/frontend/adminPost.php');
-            require('view/frontend/paging.php');
+            $template = 'adminPost';
+            $title = 'Gestion des blog posts';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
             header('Location: /accueil');
@@ -166,10 +170,11 @@ Class FrontendController
         $comments = $manager->getCommentUnPublished();
         $paging = '/admin/moderation-commentaire' ;
         $numberPages = ceil($manager->countComment() / 10);
+        $title = 'Modération des commentaires'; 
         
         if($this->isAdmin() === true) {
-            require('view/frontend/adminComment.php');
-            require('view/frontend/paging.php');
+            $template = 'adminComment';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
             header('Location: /accueil');
@@ -180,8 +185,9 @@ Class FrontendController
     {
         $manager = new UserManager();
         $users = $manager->getUsers(10);
-
-        require('view/frontend/userModeration.php');
+        $template = 'userModeration';
+        $title = 'Modération des utilisateurs';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -229,7 +235,9 @@ Class FrontendController
     public function formAddPost()
     {
         if($this->isAdmin() === true) {
-            require('view/frontend/formAddPost.php');
+            $template = 'formAddPost';
+            $title = 'Ajouter un blog post';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
             header('Location: /accueil');
@@ -285,7 +293,9 @@ Class FrontendController
         $post = $manager->getPost($postId);
 
         if($this->isAdmin() === true) {
-            require('view/frontend/updatePost.php');
+            $template = 'updatePost';
+            $title = 'Modifier un blog post';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Vous ne pouvez pas accéder à cette page';
             header('Location: index.php');
@@ -336,8 +346,9 @@ Class FrontendController
 
     public function userForm()
     {
-
-        require('view/frontend/userForm.php');
+        $template = 'userForm';
+        $title = 'Création de compte';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -373,7 +384,9 @@ Class FrontendController
 
     public function login()
      {
-        require('view/frontend/login.php');
+        $template = 'login';
+        $title = 'Connexion';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -437,8 +450,11 @@ Class FrontendController
         header('Location: /contact');
     }
 
-    public function contact() {
-        require('view/frontend/contact.php');
+    public function contact()
+    {
+        $template = 'contact';
+        $title = 'Contactez moi';
+        require('view/frontend/template.php');
     }
     
     /**
@@ -484,7 +500,9 @@ Class FrontendController
     {     
         if(!empty($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            require('view/frontend/account.php');
+            $template = 'account';
+            $title = 'Mon compte';
+            require('view/frontend/template.php');
         } else {
             $_SESSION['message'] = 'Aucun utilisateur connecté';
             header('Location: /accueil');

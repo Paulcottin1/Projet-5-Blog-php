@@ -1,7 +1,3 @@
-<?php $title = 'Mon blog'; ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
 <div class="row center title-blog-page">
     <h1 class="col">Mes réalisations</h1>
 </div>

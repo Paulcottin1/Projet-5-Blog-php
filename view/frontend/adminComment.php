@@ -1,8 +1,3 @@
-<?php $title = 'Modération des commentaires'; ?>
-<?php require('template.php');?>
-
-<?php ob_start(); ?>
-
 <div>
     <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
 </div>
@@ -37,5 +32,6 @@
     </tbody>
 </table>
 </div>
-
+<div class="full-height">
+</div>
 

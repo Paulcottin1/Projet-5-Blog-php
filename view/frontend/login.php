@@ -1,8 +1,3 @@
-<?php $title = 'Connexion'; ?>
-<?php require('template.php'); ?>
-
-<?php ob_start(); ?>
-
 <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
 <div class="row center justify-content-center">
     <h2 class="col-5"> Création de compte</h2></br>
