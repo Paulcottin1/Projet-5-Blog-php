@@ -10,7 +10,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">POST ID</th>
-            <th scope="col">AUTHEUR</th>
+            <th scope="col">USER ID</th>
             <th scope="col">COMMENTAIRE</th>
             <th scope="col">VALIDATION</th>
         </tr>
@@ -22,7 +22,7 @@
         <tr cope="row">
             <td><?= htmlspecialchars($comment->getId()) ?></td>
             <td><?= htmlspecialchars($comment->getPostId()) ?></td>
-            <td><?= htmlspecialchars($comment->getAuthor()) ?></td>
+            <td><?= htmlspecialchars($comment->getUserId()) ?></td>
             <td><?= htmlspecialchars($comment->getComment()) ?></td>
             <td><a href="/?action=publishComment&id=<?php echo $comment->getId() ?>"> Valider </a></td>
         </tr>
