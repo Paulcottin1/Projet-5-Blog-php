@@ -9,10 +9,10 @@ Class UserManager extends AbstractManager
      * @param  int $limite
      * @return $users
      */
-    public function getUsers($limite)
+    public function getUsers($limite , $page)
     {
-        if(!empty($_GET['page'])) {
-            $page = $_GET['page'];
+        if(!empty($page)) {
+            $page = $page;
         } else {
             $page = 1;
         }

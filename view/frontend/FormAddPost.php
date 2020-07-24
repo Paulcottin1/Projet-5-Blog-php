@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['message'])) { echo '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
+<?php if(isset($_SESSION['message'])) { print '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
 <div>
     <a href="/admin" class="btn btn-dark button back-admin"> Retour au menu d'administration</a>
 </div>

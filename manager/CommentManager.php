@@ -34,13 +34,7 @@ Class CommentManager extends AbstractManager
      */
     public function getComments($postId)
     {
-        if(!empty($_GET['page'])) {
-            $page = $_GET['page'];
-        } else {
-            $page = 1;
-        }
-
-        $debut = ($page - 1) * 10;
+        $debut = 1;
         $db = $this->dbConnect();
         $req = $db->prepare(
             'SELECT id, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') 

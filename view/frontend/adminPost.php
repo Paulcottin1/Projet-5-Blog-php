@@ -4,7 +4,7 @@
 <div class="row admin-post container-fluid">
     <h2 class="col-12 center"> Gestion des blog posts </h2>
     <p class="col-12 center">Vous pouvez modifier ou supprimer un blog post</p>
-    <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
+    <p><?php if(isset($_SESSION['message'])) { print $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <table class="table table-responsive-sm">
     <thead class="thead-dark">
         <tr>
@@ -21,8 +21,8 @@
         <tr cope="row">
             <td><?= htmlspecialchars($post->getId()) ?></td>
             <td><?= htmlspecialchars($post->getTitle()) ?></td>
-            <td><a href="/admin/modification-post/<?php echo $post->getId() ?>"> Modifier </a></td>
-            <td><a href="/admin/delete-post/<?php echo $post->getId() ?>"> Supprimer </a></td>
+            <td><a href="/admin/modification-post/<?php print $post->getId() ?>"> Modifier </a></td>
+            <td><a href="/admin/delete-post/<?php print $post->getId() ?>"> Supprimer </a></td>
 		</form>
         </tr>
         <?php

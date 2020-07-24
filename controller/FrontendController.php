@@ -10,7 +10,7 @@ Class FrontendController
     public function home() 
     {
         $manager = new PostManager();
-        $posts = $manager->getPosts(4);
+        $posts = $manager->getPosts(4, 0);
         $template = 'home';
         $title = 'Accueil';
         require('view/frontend/template.php');
@@ -21,11 +21,11 @@ Class FrontendController
      * @param  int $limite
      * @return
      */
-    public function listPosts($limite)
+    public function listPosts($limite, $page)
     {   
         $manager = new PostManager();
         $numberPages = ceil($manager->countPost() / $limite);
-        $posts = $manager->getPosts($limite);
+        $posts = $manager->getPosts($limite, $page);
         $paging = '/blog';
         $title = 'Mon blog';
         $template = 'listPostsView';
@@ -42,6 +42,7 @@ Class FrontendController
         $user = unserialize($_SESSION['user']);
         $commentManager = new CommentManager();
         $manager = new PostManager();
+        $userManager = new UserManager;
         $post = $manager->getPost($id);
         $title = htmlspecialchars($post->getTitle());
         $template = 'postView';
@@ -67,14 +68,17 @@ Class FrontendController
                 $affectedLines = $manager->postComment($id, $user->getId(), $comment);
             }
             else {
-                echo 'Erreur : tous les champs ne sont pas remplis !';
+                header('Location: post/' . $id);
+                $_SESSION['message'] = 'Erreur : tous les champs ne sont pas remplis !';
             }
         }
         else {
-            echo 'Erreur : aucun identifiant de billet envoyé';
+            header('Location: post/' . $id);
+            $_SESSION['message'] = 'Erreur : aucun identifiant de billet envoyé';
         }
         if ($affectedLines === false) {
-            die('Impossible d\'ajouter le commentaire !');
+            header('Location: post/' . $id);
+            $_SESSION['message'] = 'Impossible d\'ajouter le commentaire !';
         } else {
             header('Location: post/' . $id);
         }
@@ -102,7 +106,8 @@ Class FrontendController
             $_SESSION['message'] = 'Le champs commentaire n\'est pas rempli';
         }
         if ($affectedLines === false) {
-            die('Impossible de modifier le commentaire !');
+            header('Location: post/' . $id);
+            $_SESSION['message'] = 'Impossible de modifier le commentaire !';
         } else {
            if(!empty($pageNb)) { 
                 $page =  $pageNb;
@@ -145,11 +150,11 @@ Class FrontendController
      * @param  int $limite
      * @return
      */
-    public function adminPost($limite)
+    public function adminPost($limite, $page)
     {
         $manager = new PostManager();
         $numberPages = ceil($manager->countPost() / $limite);
-        $posts = $manager->getPosts($limite);
+        $posts = $manager->getPosts($limite, $page);
         $paging = '/admin/modification-post' ;
         
         if($this->isAdmin() === true) {
@@ -179,10 +184,10 @@ Class FrontendController
         }
     }
 
-    public function userModeration() 
+    public function userModeration($page) 
     {
         $manager = new UserManager();
-        $users = $manager->getUsers(10);
+        $users = $manager->getUsers(10, $page);
         $template = 'userModeration';
         $title = 'Modération des utilisateurs';
         require('view/frontend/template.php');
@@ -207,7 +212,8 @@ Class FrontendController
             $_SESSION['message'] = 'Erreur : identifiant de l\'utilisateur non-trouvé';
         }
         if ($affectedLines === false) {
-            die('Impossible de modifier le rôle de l\'utilisateur');
+            header('Location: /admin/moderation-utilisateur');
+            $_SESSION['message'] = 'Impossible de modifier le rôle de l\'utilisateur';
         } else {
             $_SESSION['message'] = 'Le rôle de l\'utilisateur a bien été modifié';
             header('Location: /admin/moderation-utilisateur');
@@ -223,7 +229,8 @@ Class FrontendController
         $manager = new CommentManager();
         $affectedLines = $manager->publishComment($id);
         if ($affectedLines === false) {
-            die('Impossible de valider le commentaire !');
+            header('Location: /admin/moderation-commentaire');
+            $_SESSION['message'] = 'Impossible de valider le commentaire !';
         } else {
             $_SESSION['message'] = 'Le post a bien été mis à jour';
             header('Location: /admin/moderation-commentaire');
@@ -257,7 +264,8 @@ Class FrontendController
             $imageName = $this->verifImg($file);
             $affectedLines = $manager->addPost($title, $content, $imageName, $chapo);             
             if ($affectedLines === false) {
-                die('Impossible d\'ajouter le post !');
+                header('Location: /admin/ajout-post');
+                $_SESSION['message'] = 'Impossible d\'ajouter le post !';
             } else {
                 header('Location: /blog');
             }
@@ -326,13 +334,16 @@ Class FrontendController
                     );
                 }
             } else {
-                echo 'Erreur : aucun identifiant de billet envoyé';
+                header('Location: /admin/modification-post');
+                $_SESSION['message'] = 'Erreur : aucun identifiant de billet envoyé';
             }
         } else {
-            echo 'Veuillez remplir tous les champs';
+            header('Location: /admin/modification-post');
+            $_SESSION['message'] = 'Veuillez remplir tous les champs';
         }                                  
         if ($affectedLines === false) {
-            die('Impossible de modifier le post !');
+            header('Location: /admin/modification-post');
+            $_SESSION['message'] = 'Impossible de modifier le post !';
         } else {
             if($file['file']['size'] > 0) {
                 unlink('./public/image/'.$img);
@@ -369,7 +380,8 @@ Class FrontendController
             $email, md5($password), $phone);
 
             if ($affectedLines === false) {
-                die('Impossible de créer votre compte');
+                $_SESSION['message'] = 'Impossible de créer votre compte';
+                header('Location: /creation-compte');
             } else {
                 $_SESSION['message'] = 'Votre compte a bien été créer, vous pouvez vous connecter';
                 header('Location: /connexion');
@@ -397,7 +409,7 @@ Class FrontendController
      {
         $manager = new UserManager();
         if(!empty($email) && !empty($password)) {
-            if($manager->connection($email, md5($password) === false )) {
+            if(empty($manager->connection($email, md5($password)))) {
                 $_SESSION['message'] = 'l\'email ou le mot de passe n\'est pas correct';
                 header('Location: connexion');
             } else {
@@ -475,20 +487,20 @@ Class FrontendController
         $extension  = pathinfo($file['file']['name'], PATHINFO_EXTENSION);
 
         if(!in_array(strtolower($extension),$tabExt)) {
-            echo 'L\'extension du fichier est incorrecte !';
+            print 'L\'extension du fichier est incorrecte !';
         }
         elseif($infosImg[2] < 1 && $infosImg[2] > 14) {
-            echo 'Le fichier à uploader n\'est pas une image !';
+            print 'Le fichier à uploader n\'est pas une image !';
         }
         elseif(($infosImg[0] > WIDTH_MAX) && ($infosImg[1] > HEIGHT_MAX) && (filesize($file['file']['tmp_name']) > MAX_SIZE)) {
-            echo 'Erreur dans les dimensions de l\'image !';
+            print 'Erreur dans les dimensions de l\'image !';
         }
         elseif(!isset($file['file']['error']) && UPLOAD_ERR_OK != $file['file']['error']) {
-            echo 'Une erreur interne a empêché l\'uplaod de l\'image';
+            print 'Une erreur interne a empêché l\'uplaod de l\'image';
         } else {
             $imageName = md5(uniqid()) .'.'. $extension;
             if(!move_uploaded_file($file['file']['tmp_name'], TARGET.$imageName)) {
-                echo 'Problème lors de l\'upload !';
+                print 'Problème lors de l\'upload !';
             }         
         }
         return $imageName;
