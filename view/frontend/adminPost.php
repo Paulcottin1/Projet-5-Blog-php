@@ -22,7 +22,7 @@
             <td><?= htmlspecialchars($post->getId()) ?></td>
             <td><?= htmlspecialchars($post->getTitle()) ?></td>
             <td><a href="/admin/modification-post/<?php echo $post->getId() ?>"> Modifier </a></td>
-            <td><a href="admin/delete-post/<?php echo $post->getId() ?>"> Supprimer </a></td>
+            <td><a href="/admin/delete-post/<?php echo $post->getId() ?>"> Supprimer </a></td>
 		</form>
         </tr>
         <?php

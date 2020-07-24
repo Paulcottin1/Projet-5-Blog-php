@@ -39,6 +39,7 @@ Class FrontendController
      */
     public function post($id)
     {
+        $user = unserialize($_SESSION['user']);
         $commentManager = new CommentManager();
         $manager = new PostManager();
         $post = $manager->getPost($id);
@@ -63,8 +64,7 @@ Class FrontendController
                 !empty($user->getFirstname()) && !empty($user->getLastname()) && 
                 !empty($user->getId()) && !empty($comment)
             ) {
-                $author = $user->getLastname() . ' ' . $user->getFirstname();
-                $affectedLines = $manager->postComment($id, $user->getId(), $author, $comment);
+                $affectedLines = $manager->postComment($id, $user->getId(), $comment);
             }
             else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -277,7 +277,7 @@ Class FrontendController
         $manager = new PostManager();
         $manager->delete($postId);
         $_SESSION['message'] = 'Le post a bien été supprimé';
-        header('Location: /admin');
+        header('Location: /admin/modification-post');
     }
     
     /**

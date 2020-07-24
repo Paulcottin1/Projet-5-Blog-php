@@ -21,7 +21,7 @@
     foreach($post->getComments() as $comment) {
     ?>  
         <div class="comment">
-            <p class="author"><strong><?= htmlspecialchars($comment->getAuthor()) ?> :</strong> </p>
+            <p class="author"><strong><?= htmlspecialchars($user->getFirstname($comment->getUserId())) ?> :</strong> </p>
             <?php
             if(isset($_GET['comment']) == 'update' && $comment->getUserId() === $user->getId()) {
             ?>
@@ -60,7 +60,7 @@
     $user = unserialize($_SESSION['user']);                ?>
     <form action="/?action=addComment&amp;id=<?= $post->getId() ?>" method="post">
         <div>
-            <p>Auteur : <?php echo $user->getLastname() . ' ' . $user->getFirstname(); ?></p>
+            <p>Auteur : <?php echo $user->getFirstname() . ' ' . $user->getLastname(); ?></p>
         </div>
         <div>
             <label for="comment">Commentaire :</label><br />

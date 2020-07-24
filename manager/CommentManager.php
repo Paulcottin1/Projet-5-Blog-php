@@ -19,9 +19,9 @@ Class CommentManager extends AbstractManager
             $comment = new Comment();
             $comments[] = $comment
             ->setId($data['id'])
-            ->setAuthor($data['author'])
             ->setComment($data['comment'])
-            ->setPostId($data['post_id']);
+            ->setPostId($data['post_id'])
+            ->setUserId($data['user_id']);
         }
         
         return $comments;
@@ -43,7 +43,7 @@ Class CommentManager extends AbstractManager
         $debut = ($page - 1) * 10;
         $db = $this->dbConnect();
         $req = $db->prepare(
-            'SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') 
+            'SELECT id, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') 
             AS comment_date_fr FROM comments WHERE post_id = ? AND publish = 1 ORDER BY comment_date 
             DESC LIMIT 10 OFFSET '.$debut
         );
@@ -66,7 +66,7 @@ Class CommentManager extends AbstractManager
     public function getComment($id)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, user_id, author, comment FROM comments WHERE id = :id');
+        $req = $db->prepare('SELECT id, user_id, comment FROM comments WHERE id = :id');
         $req->bindValue(':id', $id);
         $req->execute();
 
@@ -75,7 +75,6 @@ Class CommentManager extends AbstractManager
             
         $comment
         ->setId($data['id'])
-        ->setAuthor($data['author'])
         ->setUserId($data['user_id'])
         ->setComment($data['comment']);
 
@@ -86,20 +85,18 @@ Class CommentManager extends AbstractManager
      * post a comment
      * @param  int $postId
      * @param  int $userId
-     * @param  string $author
      * @param  string $comment
      * @return $affectedLines
      */
-    public function postComment($postId, $userId, $author, $comment)
+    public function postComment($postId, $userId, $comment)
     {
         $db = $this->dbConnect();
         $req = $db->prepare(
-            'INSERT INTO comments(post_id, user_id, author, comment, comment_date) 
-            VALUES(:postId, :userId, :author, :comment, NOW())'
+            'INSERT INTO comments(post_id, user_id, comment, comment_date) 
+            VALUES(:postId, :userId, :comment, NOW())'
         );
         $req->bindValue(':postId', $postId);
         $req->bindValue(':userId', $userId);
-        $req->bindValue(':author', $author);
         $req->bindValue(':comment', $comment);
         $affectedLines = $req->execute();
 
