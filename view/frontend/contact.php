@@ -5,7 +5,7 @@
         Vous avez une question ? Vous souhaitez que l'on collabore ensemble ?
         N'hésitez pas, je reviendrais vers vous dans les heures qui suivent.
     </p>
-    <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
+    <p><?php if(isset($_SESSION['message'])) { print $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <div class="row container-fluid">
         <div class="col-md-12 mb-md-0 mb-5">
             <form id="contact-form" name="contact-form" action="/?action=sendMail" method="POST">

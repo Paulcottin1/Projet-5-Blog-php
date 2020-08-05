@@ -10,10 +10,10 @@ Class PostManager extends AbstractManager
      * @param  int $limite
      * @return array $posts
      */
-    public function getPosts($limite)
+    public function getPosts($limite, $page)
     {
-        if(!empty($_GET['page'])) {
-            $page = $_GET['page'];
+        if(!empty($page)) {
+            $page = $page;
         } else {
             $page = 1;
         }

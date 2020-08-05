@@ -1,6 +1,6 @@
 <div class="container">
     <h2> Création de compte</h2>
-    <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
+    <p><?php if(isset($_SESSION['message'])) { print $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <form action="/?action=addUser" method="post">
         <div class="form-group">
             <label for="firstname">Prénom</label>

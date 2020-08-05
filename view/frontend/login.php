@@ -1,4 +1,4 @@
-<p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
+<p><?php if(isset($msg)) { print $msg; unset($msg);} ?></p>
 <div class="row center justify-content-center">
     <h2 class="col-5"> Création de compte</h2></br>
 </div>

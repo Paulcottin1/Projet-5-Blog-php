@@ -139,7 +139,7 @@ Class Post {
      */
     public function setCategoryId(int $categoryId) : object
     {
-        $this->category = $category;
+        $this->category = $categoryId;
         return $this;
     }
 

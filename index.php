@@ -3,107 +3,139 @@ session_start();
 require_once('vendor/autoload.php');
 use App\controller\FrontendController;
 
-if (isset($_GET['action'])) {
+$action = filter_input(INPUT_GET, 'action');
+$getId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$getPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+$getImg = filter_input(INPUT_GET, 'img');
+$getCommentId = filter_input(INPUT_GET, 'comment_id');
+
+$postComment = filter_input(INPUT_POST, 'comment');
+$postTitle = filter_input(INPUT_POST, 'title');
+$postChapo = filter_input(INPUT_POST, 'chapo');
+$postContent = filter_input(INPUT_POST, 'content');
+$postEmail = filter_input(INPUT_POST, 'email');
+$postSubject = filter_input(INPUT_POST, 'subject');
+$postMessage = filter_input(INPUT_POST, 'message');
+$postName = filter_input(INPUT_POST, 'name');
+$postFirstName = filter_input(INPUT_POST, 'firstname');
+$postPhone = filter_input(INPUT_POST, 'phone');
+$postPassword = filter_input(INPUT_POST, 'password');
+$postRole = filter_input(INPUT_POST, 'role');
+
+if (isset($action)) {
     $controller = new FrontendController();
 
-    if ($_GET['action'] == 'post') {
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-            $controller->post($_GET['id']);
+    if ($action == 'post') {
+        if (isset($getId) && $getId > 0) {
+            $controller->post($getId);
         }
         else {
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
     }
-    elseif ($_GET['action'] == 'addComment') {
+    elseif ($action == 'addComment') {
         $controller = new FrontendController();
-        $controller->addComment($_GET['id'], $_POST['comment']);
+        $controller->addComment($getId, $postComment);
     }
-    elseif($_GET['action'] == 'formAddPost') {
+    elseif($action == 'formAddPost') {
         $controller->formAddPost();
     }
-    elseif($_GET['action'] == 'addPost') {
+    elseif($action == 'addPost') {
         $controller = new FrontendController();
-        $controller->addPost($_POST['title'], $_POST['chapo'], $_POST['content'], $_FILES);
+        $controller->addPost($postTitle, $postChapo, $postContent, $_FILES);
     }
-    elseif($_GET['action'] == 'blog') {
+    elseif($action == 'blog') {
         $controller = new FrontendController();
-        $controller->listPosts(8);
+        if(isset($getPage)) {
+            $controller->listPosts(8, $getPage);
+        } else {
+            $controller->listPosts(8, 0);
+        }
     }
-    elseif($_GET['action'] == 'sendMail') {
+    elseif($action == 'sendMail') {
         $controller = new FrontendController();
-        $controller->sendMail($_POST['email'], $_POST['subject'], $_POST['message'], $_POST['name']);
+        $controller->sendMail($postEmail, $postSubject, $postMessage, $postName);
     }
-    elseif($_GET['action'] == 'contact') {
+    elseif($action == 'contact') {
         $controller = new FrontendController();
         $controller->contact();
     }
-    elseif($_GET['action'] == 'admin') {
+    elseif($action == 'admin') {
         $controller = new FrontendController();
         $controller->admin();
     }
-    elseif($_GET['action'] == 'adminPost') {
+    elseif($action == 'adminPost') {
         $controller = new FrontendController();
-        $controller->adminPost(10);
+        if(isset($getPage)) {
+            $controller->adminPost(10, $getPage);
+        } else {
+            $controller->adminPost(10, 0);
+        }
     }
-    elseif($_GET['action'] == 'adminComment') {
+    elseif($action == 'adminComment') {
         $controller = new FrontendController();
         $controller->adminComment();
     }
-    elseif($_GET['action'] == 'publishComment') {
+    elseif($action == 'publishComment') {
         $controller = new FrontendController();
-        $controller->publishComment($_GET['id']);
+        $controller->publishComment($getId);
     }
-    elseif($_GET['action'] == 'delete' && isset($_GET['id'])) {
-            $controller->delete($_GET['id']);
+    elseif($action == 'delete' && isset($getId)) {
+            $controller->delete($getId);
     }
-    elseif($_GET['action'] == 'formUpdatePost') {
+    elseif($action == 'formUpdatePost') {
         $controller = new FrontendController();
-        $controller->formUpdate($_GET['id']);
+        $controller->formUpdate($getId);
     }
-    elseif($_GET['action'] == 'update') {
+    elseif($action == 'update') {
         $controller = new FrontendController();
-        $controller->update($_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content'], $_FILES, $_GET['img']);
+        $controller->update($getId, $postTitle, $postChapo, $postContent, $_FILES, $getImg);
     }
-    elseif($_GET['action'] == 'userForm') {
+    elseif($action == 'userForm') {
         $controller = new FrontendController();
         $controller->userForm();
     }
-    elseif($_GET['action'] == 'addUser') {
+    elseif($action == 'addUser') {
         $controller = new FrontendController();
-        $controller->addUser($_POST['name'], $_POST['firstname'], $_POST['email'], $_POST['phone'], $_POST['password']);
+        $controller->addUser($postName, $postFirstName, $postEmail, $postPhone, $postPassword);
     }
-    elseif($_GET['action'] == 'login') {
+    elseif($action == 'login') {
         $controller = new FrontendController();
         $controller->login();
     }
-    elseif($_GET['action'] == 'connection') {
+    elseif($action == 'connection') {
         $controller = new FrontendController();
-        $controller->connection($_POST['email'], $_POST['password']);
+        $controller->connection($postEmail, $postPassword);
     }
-    elseif($_GET['action'] == 'logout') {
+    elseif($action == 'logout') {
         $controller = new FrontendController();
         $controller->logout();
     }
-    elseif($_GET['action'] == 'submitUpdate') {
+    elseif($action == 'submitUpdate') {
             $controller = new FrontendController();
-            $controller->updateComment($_POST['comment'], $_GET['comment_id'], $_GET['id'], $_GET['page']);
+            $controller->updateComment($postComment, $getCommentId, $getId, $getPage);
     }
-    elseif($_GET['action'] == 'userModeration') {
+    elseif($action == 'userModeration') {
         $controller = new FrontendController();
-        $controller->userModeration();
+        if(isset($getPage)) {
+            $controller->userModeration($getPage);
+        } else {
+            $controller->userModeration(0);
+        }
+        
     }
-    elseif($_GET['action'] == 'userUpdateRole') {
+    elseif($action == 'userUpdateRole') {
         $controller = new FrontendController();
-        $controller->userUpdateRole($_GET['id'], $_POST['role']);
+        $controller->userUpdateRole($getId, $postRole);
     }
-    elseif($_GET['action'] == 'account') {
+    elseif($action == 'account') {
         $controller = new FrontendController();
         $controller->account();
     }
-    elseif($_GET['action'] == 'updateUser') {
+    elseif($action == 'updateUser') {
         $controller = new FrontendController();
-        $controller->updateUser($_GET['id'], $_POST['name'], $_POST['firstname'], 
-         $_POST['email'], $_POST['phone'], $_POST['password']);
+        $controller->updateUser($getId, $postName, $postFirstName, 
+         $postEmail, $postPhone, $postPassword);
     }
 } 
  else {

@@ -4,7 +4,7 @@
 <div class="row container-fluid modComment">
     <h2 class="col-12 center">Modération des utilisateurs </h2>
     <p class="col-12 center">Vous pouvez changer le rôle d'un utilisateur</p>
-    <p><?php if(isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']);} ?></p>
+    <p><?php if(isset($_SESSION['message'])) { print $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <table class="table table-responsive-sm">
     <thead class="thead-dark">
         <tr>
@@ -27,10 +27,10 @@
             <td><?= htmlspecialchars($user->getPhone()) ?></td>
             <td><?= htmlspecialchars($user->getEmail()) ?></td>
             <td>           
-                <form action="/?action=userUpdateRole&id=<?php echo $user->getId() ?>" method="post">
+                <form action="/?action=userUpdateRole&id=<?php print $user->getId() ?>" method="post">
                 <select id="role" name="role" onchange="this.form.submit()">
                     <option value="<?= htmlspecialchars($user->getRole()) ?>"><?= htmlspecialchars($user->getRole()) ?></option>
-                    <option value="<?php if($user->getRole() == 'admin') { echo 'user'; } else { echo 'admin'; }  ?>"><?php if($user->getRole() == 'admin') { echo 'user'; } else { echo 'admin'; }  ?></option>
+                    <option value="<?php if($user->getRole() == 'admin') { print 'user'; } else { print 'admin'; }  ?>"><?php if($user->getRole() == 'admin') { print 'user'; } else { print 'admin'; }  ?></option>
                 </select>
             </td>
 

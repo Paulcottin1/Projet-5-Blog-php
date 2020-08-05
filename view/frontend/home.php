@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['message'])) { echo '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
+<?php if(isset($_SESSION['message'])) { print '<p>'.$_SESSION['message'].'</p>'; unset($_SESSION['message']);} ?>
 <div class="container-fluid name">
     <h1 class="center"> Paul Cottin, Développeur Web</h1></br>
     <p class="center">"N’embauche pas un homme qui fait son travail pour de l’argent, mais celui qui le fait pour l’amour de celui-ci." Henry David Thoreau</p>
