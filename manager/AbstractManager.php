@@ -16,7 +16,7 @@ Abstract Class AbstractManager
         }
         catch(Exception $e)
         {
-            die('Erreur : '.$e->getMessage());
+            return $e->getMessage();
     }
     }
 }

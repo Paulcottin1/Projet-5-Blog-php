@@ -40,10 +40,17 @@ Class FrontendController
     public function post($id)
     {
         $user = unserialize($_SESSION['user']);
+        $userId = $user->getId();
+        $userAuthor =  $user->getFirstname() . ' ' . $user->getLastname();
         $commentManager = new CommentManager();
         $manager = new PostManager();
         $userManager = new UserManager;
         $post = $manager->getPost($id);
+        $postImg = $post->getImg();
+        $postId = $post->getId();
+        $postTitle = $post->getTitle();
+        $postContent = $post->getContent();
+        $postComments = $post->getComments();
         $title = htmlspecialchars($post->getTitle());
         $template = 'postView';
         require('view/frontend/template.php');
@@ -297,6 +304,11 @@ Class FrontendController
     {
         $manager = new PostManager();
         $post = $manager->getPost($postId);
+        $postImg = $post->getImg();
+        $postChapo = $post->getChapo();
+        $postId = $post->getId();
+        $postTitle = $post->getTitle();
+        $postContent = $post->getContent();
 
         if($this->isAdmin() === true) {
             $template = 'updatePost';
@@ -510,6 +522,12 @@ Class FrontendController
     {     
         if(!empty($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
+            $userId = $user->getId();
+            $userFirstname = $user->getFirstname();
+            $userLastname = $user->getLastname();
+            $userPhone = $user->getPhone();
+            $userEmail = $user->getEmail();
+            $userPassword = $user->getPassword();
             $template = 'account';
             $title = 'Mon compte';
             require('view/frontend/template.php');
