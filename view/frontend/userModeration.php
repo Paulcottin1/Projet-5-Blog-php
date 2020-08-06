@@ -19,23 +19,27 @@
     <tbody>
         <?php
         foreach($users as $user) { 
-        ?>
-        <tr cope="row">
-            <td><?= htmlspecialchars($user->getId()) ?></td>
-            <td><?= htmlspecialchars($user->getFirstname()) ?></td>
-            <td><?= htmlspecialchars($user->getLastname()) ?></td>
-            <td><?= htmlspecialchars($user->getPhone()) ?></td>
-            <td><?= htmlspecialchars($user->getEmail()) ?></td>
-            <td>           
-                <form action="/?action=userUpdateRole&id=<?php print $user->getId() ?>" method="post">
-                <select id="role" name="role" onchange="this.form.submit()">
-                    <option value="<?= htmlspecialchars($user->getRole()) ?>"><?= htmlspecialchars($user->getRole()) ?></option>
-                    <option value="<?php if($user->getRole() == 'admin') { print 'user'; } else { print 'admin'; }  ?>"><?php if($user->getRole() == 'admin') { print 'user'; } else { print 'admin'; }  ?></option>
-                </select>
-            </td>
-
-		</form>
-        </tr>
+            $userId = $user->getId();
+            $userFirstname = $user->getFirstname();
+            $userLastname = $user->getLastname();
+            $userPhone = $user->getPhone();
+            $userEmail = $user->getEmail();
+            $userRole = $user->getRole(); ?>
+            <tr cope="row">
+                <td><?= htmlspecialchars($userId) ?></td>
+                <td><?= htmlspecialchars($userFirstname) ?></td>
+                <td><?= htmlspecialchars($userLastname) ?></td>
+                <td><?= htmlspecialchars($userPhone) ?></td>
+                <td><?= htmlspecialchars($userEmail) ?></td>
+                <td>           
+                    <form action="/?action=userUpdateRole&id=<?= $userId ?>" method="post">
+                    <select id="role" name="role" onchange="this.form.submit()">
+                        <option value="<?= htmlspecialchars($userRole) ?>"><?= htmlspecialchars($userRole) ?></option>
+                        <option value="<?php if($userRole == 'admin') { print 'user'; } else { print 'admin'; }  ?>"><?php if($userRole == 'admin') { print 'user'; } else { print 'admin'; }  ?></option>
+                    </select>
+                </td>
+            </form>
+            </tr>
         <?php
         }
         ?>

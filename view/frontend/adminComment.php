@@ -17,15 +17,18 @@
     </thead>
     <tbody>
         <?php
-        foreach($comments as $comment) { 
-        ?>
-        <tr cope="row">
-            <td><?= htmlspecialchars($comment->getId()) ?></td>
-            <td><?= htmlspecialchars($comment->getPostId()) ?></td>
-            <td><?= htmlspecialchars($comment->getUserId()) ?></td>
-            <td><?= htmlspecialchars($comment->getComment()) ?></td>
-            <td><a href="/?action=publishComment&id=<?php print $comment->getId() ?>"> Valider </a></td>
-        </tr>
+        foreach($comments as $comment) {
+            $commentId = $comment->getId();
+            $commentPostId = $comment->getPostId();
+            $commentUserId = $comment->getUserId();
+            $commentContent = $comment->getComment(); ?>
+            <tr cope="row">
+                <td><?= htmlspecialchars($commentId) ?></td>
+                <td><?= htmlspecialchars($commentPostId) ?></td>
+                <td><?= htmlspecialchars($commentUserId) ?></td>
+                <td><?= htmlspecialchars($commentContent) ?></td>
+                <td><a href="/?action=publishComment&id=<?= $commentId ?>"> Valider </a></td>
+            </tr>
         <?php
         }
         ?>
