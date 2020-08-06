@@ -4,26 +4,26 @@
     <p>Mes informations personnelles</p>
 </div>
 <div class="container form-add-post">
-    <form action="/?action=updateUser&id=<?php print $user->getId() ?>" method="post">
+    <form action="/?action=updateUser&id=<?= $userId ?>" method="post">
         <div>
             <label for="firstname"> Prénom :</label>
-            <input type="text" name="firstname" id="firstname" value="<?php print $user->getFirstname()?>">
+            <input type="text" name="firstname" id="firstname" value="<?= $userFirstname ?>">
         </div>
         <div>
             <label for="name"> Nom :</label>
-            <input type="text" name="name" id="name" value="<?php print $user->getLastname()?>">
+            <input type="text" name="name" id="name" value="<?= $userLastname ?>">
         </div>
         <div>
             <label for="phone"> Numéro de téléphone :</label>
-            <input type="text" name="phone" id="phone" value="<?php print $user->getPhone()?>">
+            <input type="text" name="phone" id="phone" value="<?= $userPhone ?>">
         </div>
         <div>
             <label for="email"> Email :</label>
-            <input type="text" name="email" id="email" value="<?php print $user->getEmail()?>">
+            <input type="text" name="email" id="email" value="<?= $userEmail ?>">
         </div>
         <div>
             <label for="password"> Mot de passe :</label>
-            <input type="password" name="password" id="password" value="<?php print $user->getPassword()?>">
+            <input type="password" name="password" id="password" value="<?= $userPassword ?>">
         </div>
         <input type="submit" class="margin-top btn btn-dark" value="Modifier">
     </form>
