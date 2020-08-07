@@ -19,14 +19,13 @@
                     <?php 
                     if(!empty($_SESSION['user'])) { 
                         $user = unserialize($_SESSION['user']);
-                        $userAuthor = $user->getFirstname()." ".$user->getLastname();
-                        $userRole = $user->getRole(); ?>
+                        $userAuthor = $user->getFirstname()." ".$user->getLastname(); ?>
                         <div class="dropdown menu">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Bonjour <?= $userAuthor ?>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <?php if($userRole == 'admin' ) { ?>
+                                <?php if($user->getRole() == 'admin' ) { ?>
                                     <a class="nav-item nav-link active dropdown-item" href="/admin">Admin</a>
                                 <?php } ?>
                                 <a class="nav-item nav-link active dropdown-item" href="/mon-compte"> Mon compte</a>

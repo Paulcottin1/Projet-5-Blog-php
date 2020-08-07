@@ -16,14 +16,12 @@
     </thead>
     <tbody>
         <?php
-        foreach($posts as $post) {
-            $postId = $post->getId();
-            $postTitle = $post->getTitle(); ?>
+        foreach($posts as $post) { ?>
             <tr cope="row">
-                <td><?= htmlspecialchars($postId) ?></td>
-                <td><?= htmlspecialchars($postTitle) ?></td>
-                <td><a href="/admin/modification-post/<?= $postId ?>"> Modifier </a></td>
-                <td><a href="/admin/delete-post/<?= $postId ?>"> Supprimer </a></td>
+                <td><?= htmlspecialchars($post->getId()) ?></td>
+                <td><?= htmlspecialchars($post->getTitle()) ?></td>
+                <td><a href="/admin/modification-post/<?= $post->getId() ?>"> Modifier </a></td>
+                <td><a href="/admin/delete-post/<?= $post->getId() ?>"> Supprimer </a></td>
             </form>
             </tr>
         <?php
