@@ -19,31 +19,27 @@
     <p><?php if(isset($_SESSION['message'])) { print $_SESSION['message']; unset($_SESSION['message']);} ?></p>
     <?php
     foreach($postComments as $comment) {
-        $commentId = $comment->getId();
-        $commentUserId = $comment->getUserId();
-        $commentContent = $comment->getComment();
         $userComment = $userManager->getUser($comment->getUserId());
-        $userCommentFirstname = $userComment->getFirstname();
     ?>  
         <div class="comment">
-            <p class="author"><strong><?= htmlspecialchars($userCommentFirstname); ?> :</strong> </p>
+            <p class="author"><strong><?= htmlspecialchars($userComment->getFirstname()); ?> :</strong> </p>
             <?php
-            if(isset($_GET['comment']) == 'update' && $commentUserId === $userId) {
+            if(isset($_GET['comment']) == 'update' && $comment->getUserId() === $userId) {
             ?>
-                <form action="/?action=submitUpdate&id=<?= $postId; ?>&page=<?php if(!empty($_GET['page'])) { print $_GET['page']; } else { print 1; } ?>&comment_id=<?= $commentId; ?>" method="post">
-                    <textarea name="comment" id="comment" cols="30" rows="10" class="text-area-update"><?= $commentContent ?></textarea>
+                <form action="/?action=submitUpdate&id=<?= $postId; ?>&page=<?php if(!empty($_GET['page'])) { print $_GET['page']; } else { print 1; } ?>&comment_id=<?= $comment->getId(); ?>" method="post">
+                    <textarea name="comment" id="comment" cols="30" rows="10" class="text-area-update"><?= $comment->getComment() ?></textarea>
                     <input type="submit" class="btn btn-dark update-comment margin-bottom">
                 </form>
             <?php
             } else {
             ?>
-                <p class="content-comment"><?= nl2br(htmlspecialchars($commentContent)) ?></p>
+                <p class="content-comment"><?= nl2br(htmlspecialchars($comment->getComment())) ?></p>
             <?php
             }
             ?>
             <?php
             if(!empty($user)) {
-                if($commentUserId === $userId && !isset($_GET['comment'])) {
+                if($comment->getUserId() === $userId && !isset($_GET['comment'])) {
                 ?>
                     <a href="/post/<?= $postId; ?>/page/<?php if(!empty($_GET['page'])) {
                     print $_GET['page']; } else { print 1; } ?>/modification-commentaire#comment" class="btn btn-dark margin-bottom update-comment"> Modifier</a>

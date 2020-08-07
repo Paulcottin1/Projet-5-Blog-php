@@ -8,22 +8,18 @@
         <h2 class=""> Dernières réalisations</h2>
         <div class="row justify-content-center">
             <?php
-            foreach($posts as $post) { 
-                $postImg = $post->getImg();
-                $postId = $post->getId();
-                $postTitle = $post->getTitle();
-                $postChapo = $post->getChapo(); ?>
+            foreach($posts as $post) { ?>
                 <div class="news col-sm-5 col-md-3">
-                    <img src="/public/image/<?= htmlspecialchars($postImg)  ?>" alt="Image article" class="img-fluid">
+                    <img src="/public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
                     <div class="desc">
                         <h3>
-                            <?= htmlspecialchars($postTitle) ?>
+                            <?= htmlspecialchars($post->getTitle()) ?>
                         </h3>
                         <p>
-                            <?= nl2br(htmlspecialchars($postChapo)) ?>
+                            <?= nl2br(htmlspecialchars($post->getChapo())) ?>
                         </p>
                         <div class="view-comments">
-                            <a href="post/<?= $postId ?>" class="btn btn-dark">Voir plus</a>
+                            <a href="post/<?= $post->getId() ?>" class="btn btn-dark">Voir plus</a>
                         </div>
                     </div>
                 </div>
