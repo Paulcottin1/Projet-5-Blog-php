@@ -2,23 +2,23 @@ RewriteEngine on
 Options -Indexes
 
 
-RewriteRule ^accueil?$ index.php
-RewriteRule ^post/([0-9]+)$ ?action=post&id=$1
-RewriteRule ^post/([0-9]+)/page/([0-9]+)$ ?action=post&id=$1&page=$2
-RewriteRule ^blog$ ?action=blog
-RewriteRule ^blog/page/([0-9]+)$ ?action=blog&page=$1
-RewriteRule ^contact$ ?action=contact 
-RewriteRule ^mon-compte$ ?action=account
-RewriteRule ^deconnexion$ ?action=logout
-RewriteRule ^connexion$ ?action=login 
-RewriteRule ^admin$ ?action=admin
-RewriteRule ^admin/moderation-commentaire$ ?action=adminComment
-RewriteRule ^admin/moderation-commentaire/page/([0-9]+)$ ?action=adminComment&page=$1
-RewriteRule ^admin/modification-post$ ?action=adminPost
-RewriteRule ^admin/modification-post/page/([0-9]+)$ ?action=adminPost&page=$1
+RewriteRule ^accueil?$ /index.php
+RewriteRule ^post/([0-9]+)$ /?action=post&id=$1
+RewriteRule ^post/([0-9]+)/page/([0-9]+)$ /?action=post&id=$1&page=$2
+RewriteRule ^blog$ /?action=blog
+RewriteRule ^blog/page/([0-9]+)$ /?action=blog&page=$1
+RewriteRule ^contact$ /?action=contact 
+RewriteRule ^mon-compte$ /?action=account
+RewriteRule ^deconnexion$ /?action=logout
+RewriteRule ^connexion$ /?action=login 
+RewriteRule ^admin$ /?action=admin
+RewriteRule ^admin/moderation-commentaire$ /?action=adminComment
+RewriteRule ^admin/moderation-commentaire/page/([0-9]+)$ /?action=adminComment&page=$1
+RewriteRule ^admin/modification-post$ /?action=adminPost
+RewriteRule ^admin/modification-post/page/([0-9]+)$ /?action=adminPost&page=$1
 RewriteRule ^admin/ajout-post$ ?action=formAddPost
-RewriteRule ^admin/modification-post/([0-9]+)$ ?action=formUpdatePost&id=$1
-RewriteRule ^admin/moderation-utilisateur$ ?action=userModeration
+RewriteRule ^admin/modification-post/([0-9]+)$ /?action=formUpdatePost&id=$1
+RewriteRule ^admin/moderation-utilisateur$ /?action=userModeration
 RewriteRule ^admin/delete-post/([0-9]+)$ /?action=delete&id=$1
-RewriteRule ^post/([0-9]+)/page/([0-9]+)/modification-commentaire$ ?action=post&id=$1&page=$2&comment=update
+RewriteRule ^post/([0-9]+)/page/([0-9]+)/modification-commentaire$ /?action=post&id=$1&page=$2&comment=update
 RewriteRule ^creation-compte$ ?action=userForm
