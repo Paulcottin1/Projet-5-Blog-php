@@ -48,7 +48,3 @@
         </div>
     </div>
 </section>
-<div class="full-height">
-</div>
-<div class="full-height">
-</div>

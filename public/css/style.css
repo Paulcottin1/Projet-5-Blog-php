@@ -6,10 +6,6 @@ body {
   min-height: 100%;
 }
 
-.full-height {
-  min-height: 20vh !important;
-}
-
 h1 {
   text-align: center;
   color: #343a40;
@@ -183,10 +179,6 @@ a {
   margin-bottom: 3px;
 }
 
-.pagination {
-  position: absolute;
-  left: 40%;
-}
 
 .paging {
   height: 50px;
@@ -262,7 +254,6 @@ a {
 }
 
 .cv a {
-  width: 30%;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
@@ -287,6 +278,10 @@ a {
 .dropdown-menu a {
   background-color: #545b62 !important;
   color: white !important;
+}
+
+.content-template {
+  min-height: calc(100vh - 70px);
 }
 
 /* admin */
@@ -330,7 +325,7 @@ a {
 
 @media all and (max-width: 575px) {
   .news {
-    width: 70% !important;
+    width: 85% !important;
   }
 
   .name p {

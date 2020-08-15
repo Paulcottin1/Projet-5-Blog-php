@@ -1,7 +1,7 @@
 <?php
 if($numberPages > 1 ) {
 ?>
-    <nav aria-label="" class="paging">
+    <nav aria-label="" class="paging row justify-content-center">
     <ul class="pagination">
         <li class="page-item">
             <a href="<?= $paging; ?>/page/1" class="btn btn-dark page-link"> << </a>

@@ -28,5 +28,3 @@
         <input type="submit" class="margin-top btn btn-dark" value="Modifier">
     </form>
 </div>
-<div class="full-height">
-</div>

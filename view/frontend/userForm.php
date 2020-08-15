@@ -26,5 +26,3 @@
         <input type="submit" class="btn btn-dark">
     </form>
 </div>
-<div class="full-height">
-</div>
