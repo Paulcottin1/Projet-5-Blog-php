@@ -20,7 +20,3 @@
     <button type="submit" class="btn btn-dark">Connexion</button>
     </form>
 </div>
-<div class="full-height">
-</div>
-<div class="full-height">
-</div>

@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <?php
             foreach($posts as $post) { ?>
-                <div class="news col-sm-5 col-md-3">
+                <div class="news col-sm-5 col-md-6 col-lg-3">
                     <img src="/public/image/<?= htmlspecialchars($post->getImg())  ?>" alt="Image article" class="img-fluid">
                     <div class="desc">
                         <h3>
@@ -38,14 +38,11 @@
 <div class="center social-media margin-top">
     <h2 class=""> Réseaux sociaux professionnel</h2>
     <div class="container-fluid row justify-content-center">
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-2 col-sm-12 col-6">
             <a href="https://github.com/Paulcottin1"> <img src="./public/image/github.png" alt=""></br> Voir</a>
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-2 col-sm-12 col-6">
             <a href="https://www.linkedin.com/in/paulcottin/"> <img src="./public/image/linkedin.jpg" alt=""></br> Voir</a>
         </div>
-        
-
     </div>
-
 </div>
