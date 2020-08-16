@@ -42,7 +42,7 @@
                 if($comment->getUserId() === $userId && !isset($_GET['comment'])) {
                 ?>
                     <a href="/post/<?= $postId; ?>/page/<?php if(!empty($_GET['page'])) {
-                    print $_GET['page']; } else { print 1; } ?>/modification-commentaire#comment" class="btn btn-dark margin-bottom update-comment"> Modifier</a>
+                    print $_GET['page']; } else { print 1; } ?>/modification-commentaire#comment" class="btn btn-dark button update-comment"> Modifier</a>
                 <?php
                 }
             }

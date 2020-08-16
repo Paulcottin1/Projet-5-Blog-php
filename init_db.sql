@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 07, 2020 at 11:29 AM
+-- Generation Time: Aug 16, 2020 at 01:59 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
@@ -34,43 +34,6 @@ CREATE TABLE `comments` (
   `comment_date` datetime NOT NULL,
   `publish` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `post_id`, `user_id`, `comment`, `comment_date`, `publish`) VALUES
-(85, 79, 13, 'J\'adore cette article', '2020-07-23 17:44:21', 1),
-(86, 79, 13, 'Vivement le prochaine article !', '2020-07-23 17:44:34', 1),
-(87, 79, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:44:50', 1),
-(88, 79, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:44:53', 1),
-(89, 79, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:44:55', 1),
-(90, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:04', 1),
-(91, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:06', 1),
-(92, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:09', 1),
-(93, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:12', 1),
-(94, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:14', 1),
-(95, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:17', 1),
-(96, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:19', 1),
-(97, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:22', 1),
-(98, 86, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:25', 1),
-(99, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:33', 1),
-(100, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:36', 1),
-(101, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:39', 1),
-(102, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:41', 1),
-(103, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:43', 1),
-(104, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:46', 1),
-(105, 85, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:50', 0),
-(106, 84, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:56', 0),
-(107, 84, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:45:58', 0),
-(108, 84, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:46:01', 0),
-(109, 84, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:46:04', 0),
-(110, 82, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:47:06', 1),
-(111, 82, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2020-07-23 17:47:10', 0),
-(113, 86, 15, 'Lorem', '2020-07-30 13:15:17', 1),
-(115, 84, 15, 'Loremi', '2020-08-01 14:19:05', 0),
-(116, 87, 15, 'Loremu', '2020-08-06 15:48:13', 1),
-(117, 87, 15, 'Loremo', '2020-08-07 13:27:03', 1);
 
 -- --------------------------------------------------------
 
@@ -160,7 +123,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `posts`
