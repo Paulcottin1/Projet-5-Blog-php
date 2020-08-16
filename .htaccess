@@ -21,4 +21,4 @@ RewriteRule ^admin/modification-post/([0-9]+)$ /?action=formUpdatePost&id=$1
 RewriteRule ^admin/moderation-utilisateur$ /?action=userModeration
 RewriteRule ^admin/delete-post/([0-9]+)$ /?action=delete&id=$1
 RewriteRule ^post/([0-9]+)/page/([0-9]+)/modification-commentaire$ /?action=post&id=$1&page=$2&comment=update
-RewriteRule ^creation-compte$ ?action=userForm
+RewriteRule ^creation-compte$ /?action=userForm
