@@ -39,9 +39,11 @@ Class FrontendController
      */
     public function post($id)
     {
-        $user = unserialize($_SESSION['user']);
-        $userId = $user->getId();
-        $userAuthor =  $user->getFirstname() . ' ' . $user->getLastname();
+        if(!empty($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            $userId = $user->getId();
+            $userAuthor =  $user->getFirstname() . ' ' . $user->getLastname();
+        }
         $commentManager = new CommentManager();
         $manager = new PostManager();
         $userManager = new UserManager;

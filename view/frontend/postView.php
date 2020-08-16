@@ -72,7 +72,7 @@
         </form>
     <?php
     } else { ?>
-        <a class="btn btn-dark margin-bottom" href="/connexion">Connectez vous pour écrire un commentaire</a>
+        <a class="btn btn-dark button" href="/connexion">Connectez vous pour écrire un commentaire</a>
     <?php 
     }
     ?>
